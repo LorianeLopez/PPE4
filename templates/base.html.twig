@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}MicroStore{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset("build/css/app.css") }}" />
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-light bg-faded" >
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Links -->
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item" >
+                    <a class="nav-link" style="color: indianred" href="../"><b><b>Accueil</b></b></a>
+                </li>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: indianred"><b>Monsieur {{app.user.getNom()}} </b></a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: peachpuff">
+                            <a class="dropdown-item" style="color: indianred" href="../panier"><b>Panier</b></a>
+                            <a class="dropdown-item" style="color: indianred" href="../commandes"><b>Commandes</b></a>
+                            <a class="dropdown-item" style="color: indianred" href="../admin"><b>Administration</b></a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: indianred" href="../prod"><b>Produits</b></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: indianred" href="../logout"><b>Deconnexion</b></a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: indianred" href="../prod"><b>Produits</b></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: indianred" href="../login"><b>Connexion</b></a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+{% block body %}{% endblock %}
+{% block javascripts %}{% endblock %}
+<script src="{{asset("build/js/app.js")}}"></script>
+
+</body>
+</html>

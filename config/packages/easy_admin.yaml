@@ -1,0 +1,35 @@
+easy_admin:
+    design:
+        form_theme: 'horizontal'
+        
+        menu:
+            - label: 'Utilisateurs'
+            - { entity: 'Utilisateurs', icon: 'users'}
+                       
+            - label: 'Liens internes'
+            - { label: 'Notre Site', route: "accueil", icon: "calendar"} 
+            
+            
+    entities:
+        Utilisateurs:
+            class: App\Entity\Utilisateurs
+            list:
+                title: "Liste des utilisateurs"
+                fields:
+                    - {property: 'numero'}
+                    - {property: 'nom', type: 'text'}
+                    - {property: 'prenom', type: 'text'}
+                    - {property: 'codePerso'}
+                    - {property: 'is_active', type: 'toogle'}
+                    - {property: 'role'}
+            form:
+                title: "Ajout d'un utilisateur"
+                
+                fields:
+                    - {property: 'numero', type: 'text'}
+                    - {property: 'nom', type: 'text'}
+                    - {property: 'prenom', type: 'text'}
+                    - {property: 'codePerso'}
+                    - {property: 'is_active', type: 'checkbox'}
+                    - {property: 'role', type: 'choice', type_options:
+                            {choices: {'Utilisateur':'ROLE_USER', 'Admin':'ROLE_ADMIN'}}}

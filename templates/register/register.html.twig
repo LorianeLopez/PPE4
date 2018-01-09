@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <center>
+                <div><h2><u><b>Inscription</b></u></h2></div>
+                <br>
+                <br>
+                    {{ form_start(form) }}
+                    {{ form_row(form.Numero) }}
+                    <br>
+                    {{ form_row(form.Nom) }}
+                    <br>
+                    {{ form_row(form.Prenom) }}
+                    <br>
+                    {{ form_row(form.Codeperso) }}
+                    <br>
+                    <br>
+                    {{ form_widget(form.Save, {'attr': {'style': 'color: white'}}) }}
+
+                    {{ form_end(form) }}
+                </center>
+            </div>
+        </div>
+    </div>
+    
+{% endblock body %}

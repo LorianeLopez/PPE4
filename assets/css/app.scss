@@ -1,0 +1,21 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 7 janv. 2018, 17:42:41
+    Author     : Loriane
+*/
+
+$main-color: papayawhip;
+$white: indianred;
+
+@import '~bootstrap/scss/bootstrap';
+
+body{
+    background-color: $main-color;
+    color: $white;
+}
+
+

@@ -1,0 +1,54 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    <div class="container">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <center>
+                    <div><h2><u><b>Connexion</b></u></h2></div>
+                    <br>
+                    <form action="{{ path('login') }}" method='post'>
+                        <br>
+                        <label for="username"><i>Numero : </i></label>
+                        <input type="text" class="form-control" style="background-color: white" id='username' name="_username" value="{{ last_username }}" />
+                        <br>
+                        <label for="password"><i>Code Personnel : </i></label>
+                        <input type="password" class="form-control" style="background-color: white" readonly="readonly" id="password" name="_password" />
+                        <br>
+                        <br>
+                        <button type="submit" class="btn btn-secondary" style="margin-left: -90px; color: white">Login</button>
+                    </form>
+                    <br>
+                    <br>
+                    <div>Si vous n'avez pas encore de compte, cliquez <a href="../register">ici</a> pour vous inscrire.</div>
+                </center>
+            </div>
+            <br>
+            <div class="col-3" style="margin-top: 150px; margin-left: -30px">
+                {% for offs in table %}
+                    <div class="row" style="margin-left: 90px">
+                        {% for nb in offs %}
+                            <button id="{{nb}}" style="color: white" class="btn btn-danger" onclick="input({{nb}});">{{nb}}</button>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <button class="btn btn-secondary"  style="margin-top: 81px; margin-left: -170px; color: white" onclick="erase()">Corriger</button>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function input(i) {
+            document.getElementById('password').value = document.getElementById('password').value + document.getElementById(i).innerHTML;
+        }
+        function erase(){
+            var mdp = document.getElementById('password').value;
+            mdp = mdp.substring(0,mdp.length-1);
+            document.getElementById('password').value = mdp;
+        }
+    </script>
+
+{% endblock body %}
