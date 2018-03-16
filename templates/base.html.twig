@@ -2,11 +2,19 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}MicroStore{% endblock %}</title>
+        <title>{% block title %}BookStore{% endblock %}</title>
         <link rel="stylesheet" href="{{ asset("build/css/app.css") }}" />
+        <link rel="icon" type="image/png" href="{{asset("build/img/bookstore.ico")}}" />
+        <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+        <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+        {% set currentPath = path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) %} 
+       {% if currentPath == '/panierVider' %}
+            <meta http-equiv="refresh" content="1; url=../panier">
+        {% endif %}
     {% block stylesheets %}{% endblock %}
 </head>
-<body>
+<body style="margin-left: 100px">
     <nav class="navbar navbar-expand-sm navbar-light bg-faded" >
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -16,37 +24,50 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item" >
+                    <img src="{{asset("build/img/logo_bookstore.png")}}" alt="" style="width: 30px; height: 30px; margin-top: 3px; margin-right: 6px; margin-left: -6px"/>
+                </li>
+                <li class="nav-item" >
                     <a class="nav-link" style="color: indianred" href="../"><b><b>Accueil</b></b></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: indianred" href="../produits"><b>Produits</b></a>
                 </li>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: indianred"><b>Monsieur {{app.user.getNom()}} </b></a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: indianred"><b>{{app.user.getNom()}} {{app.user.getPrenom()}} </b></a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: peachpuff">
                             <a class="dropdown-item" style="color: indianred" href="../panier"><b>Panier</b></a>
                             <a class="dropdown-item" style="color: indianred" href="../commandes"><b>Commandes</b></a>
-                            <a class="dropdown-item" style="color: indianred" href="../admin"><b>Administration</b></a>
+                            {% if app.user.getRole() == "ROLE_ADMIN" %}
+                                <a class="dropdown-item" style="color: indianred" href="../admin"><b>Administration</b></a>
+                            {% endif %}
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" style="color: indianred" href="../prod"><b>Produits</b></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" style="color: indianred" href="../logout"><b>Deconnexion</b></a>
+                    <li class="nav-item" id="login">
+                        <a class="nav-link" style="color: indianred; position: absolute; right: 100px" href="../logout"><b>Déconnexion</b></a>
                     </li>
                 {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" style="color: indianred" href="../prod"><b>Produits</b></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" style="color: indianred" href="../login"><b>Connexion</b></a>
+                    <li class="nav-item" id="login">
+                        <a class="nav-link" style="color: indianred; position: absolute; right: 100px" href="../login"><b>Connexion</b></a>
                     </li>
                 {% endif %}
             </ul>
         </div>
     </nav>
-{% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
-<script src="{{asset("build/js/app.js")}}"></script>
+    <hr style="margin-right: 100px; margin-top: 5px"/>
+    {#<div class="col-md-4">
+        Hello
+        <img src="{{asset("build/img/Divergente/Divergente_Tome_1.jpg")}}" alt=""/>
+    </div>#}
+    {% block body %}
+
+
+
+
+    {% endblock %}
+    {% block javascripts %}
+    {% endblock %}
+    <script src="{{asset("build/js/app.js")}}"></script>
 
 </body>
 </html>

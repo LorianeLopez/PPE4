@@ -1,0 +1,160 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="container">
+        <input type="hidden" id="books" value="{{nbLivres}}" />
+        <input type="hidden" id="booksPanier" value="{{livresPanier}}" />
+        <div class="alert alert-warning" contenteditable="false" style="margin-left: -115px">
+            {{message}}
+        </div>
+        <br>
+        <div class="row">
+            {% for livre in livres %}
+                <div class="row">
+                    <div class="col-md-2">
+                        <center><img style="max-width: 100%; max-height: 100%; width: 205px; height: 235px; margin-top: 15px;" src="{{asset(livre.getCouvertureLivre)}}" /></center>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>{{livre.getTitreLivre}}</h4>
+                        <p>
+                            {{livre.getResumeLivre}}
+                        </p>
+                    </div>
+                    <div class="col-md-3" id="divPrix">
+                        <center><span class="text-center" id="prix">{{"%.2f"|format(livre.getPrixLivre)}}</span><span class="text-center"> € / unité</span></center>
+                    </div>
+                    <div class="col-md-3" id="divQuant">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <center>
+                                    <a class="btn btn-default btn-sm" href="../panierPlus{{livre.getIdLivre}}" style="color: black;text-decoration: none;">+</a>
+                                </center>
+                            </div>
+                            <center><div class="col-md-2" style="text-align: center;">
+                                    {% set livreId = livre.getIdLivre %}
+                                    <span class="quant" id="quant">{{quantites[livreId].quantite}}</span>
+                                </div></center>
+                            <div class="col-md-2" style="text-align: center;">
+                                <a class="btn btn-default btn-sm" href="../panierMoins{{livre.getIdLivre}}" style="color: black;text-decoration: none;">-</a>
+                            </div>
+                            <div class="col-md-6">
+                                <center>
+                                    <a href="../panierRetirer{{livreId}}" type="button" class="btn btn-danger" style="color: white">
+                                        Retirer du panier
+                                    </a>
+                                    <center/>
+                            </div>	
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {% set montant = livre.getPrixLivre*quantites[livreId].quantite %}                     
+                                <h4>Montant:<br><span id="montant{{livreId}}">{{"%.2f"|format(montant)}}</span><span class="text-center"> €</span></4>
+                            </div>
+                        </div>
+
+                    </div>
+                </div> 
+                <br />
+                <br />
+                <hr style="width: 100%"/>
+            {% endfor %}
+            {% set currentPath = path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) %}
+            {% if currentPath == '/panier' %}
+                <div class="row" style="margin-top: 40px; width: 100%">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3" id="divMontantTexte" style="margin-left: -50px;">
+                        <h3>Montant total:</h3>
+                    </div>
+                    <div class="col-md-4" id="divMontant" style="margin-top: 10px">
+                        <h5><span class="text-center" id="montantTotal" ></span><span class="text-center">  € </span></h5>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <div class="row" style="position: absolute; margin-top: 85px; right:300px;">
+                    <span id="boutonCommander">
+                        <a id="modal" href="#modal-commande" role="button" class="btn btn-primary" data-toggle="modal"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Commander</a>
+                    </span>
+
+                    <span id="boutonViderPanier">
+                        <a class="btn btn-danger" type="button" href="../panierVider" style="color: white;text-decoration: none;margin-left: 10px">Vider le panier</a>
+                    </span>
+                    <br><br><br><br><br><br>
+                </div>
+                <div class="modal fade" id="modal-commande" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content" style="background-color: papayawhip">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="myModalLabel">
+                                    Procéder au paiement
+                                </h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="position: absolute; right: 10px">
+                                    ×
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Êtes-vous sur de vouloir commander ?
+                            </div>
+                            <div class="modal-footer">
+                                <br>
+                                <div id="paypal-button"></div>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+
+        var CheminComplet = document.location.href;
+        var CheminRepertoire = CheminComplet.substring(CheminComplet.lastIndexOf( "/" )+1 );
+        if (CheminRepertoire === 'panier') {
+            paypal.Button.render({
+                env: 'sandbox', // Or 'prodcution',
+
+                client: {
+                    sandbox: 'AewLWD4p0WmqSuD5XwD7cokCeMs5Nzek2uctfzirEj0InBGUTVvXbWmVCi0lZpYSrg1pSF8T-TWmVe2r'
+                },
+
+                commit: true, // Show a 'Pay Now' button
+
+                style: {
+                    color: 'gold',
+                    size: 'medium'
+                },
+
+                payment: function (data, actions) {
+                    return actions.payment.create({
+                        payment: {
+                            transactions: [
+                                {
+                                    amount: {total: '1000.00', currency: 'USD'}
+                                }
+                            ]
+                        }
+                    });
+                },
+
+                onAuthorize: function (data, actions) {
+                    return actions.payment.execute().then(function (payment) {
+                        window.location = '../commandes';
+                        // The payment is complete!
+                        // You can now show a confirmation message to the customer
+                    });
+                },
+
+                onCancel: function (data, actions) {
+                    alert('Vous avez annulé la commande');
+                    window.location = '../panier';
+                    /* 
+                     * Buyer cancelled the payment 
+                     */
+                }
+            }, '#paypal-button');
+        }
+    </script>
+{% endblock body %}

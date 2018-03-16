@@ -18,4 +18,20 @@ body{
     color: $white;
 }
 
+.btn-primary {
+  color: white;
+  background-color: #CD5C5C;
+  border-color: #CD5C5C;
+}
+
+.btn-primary:hover {
+  color: white;
+  background-color: #D67A7A;
+  border-color: #D67A7A;
+}
+
+.alert-warning{
+    background-color: #D67A7A;
+    color: white;
+}
 
