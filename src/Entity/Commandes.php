@@ -22,9 +22,9 @@ class Commandes
     private $idcommande;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="prixTotal", type="integer", nullable=false)
+     * @ORM\Column(name="prixTotal", type="float", nullable=false)
      */
     private $prixtotal;
 
@@ -68,7 +68,7 @@ class Commandes
      */
     public function __construct()
     {
-        $this->idlivre = new \Doctrine\Common\Collections\ArrayCollection();
+        
     }
     
     function getIdcommande() {
@@ -83,12 +83,8 @@ class Commandes
         return $this->statut;
     }
 
-    function getNumeroutilisateur(): \Utilisateurs {
+    function getNumeroutilisateur() {
         return $this->numeroutilisateur;
-    }
-
-    function getIdlivre(): \Doctrine\Common\Collections\Collection {
-        return $this->idlivre;
     }
 
     function setIdcommande($idcommande) {
@@ -99,16 +95,12 @@ class Commandes
         $this->prixtotal = $prixtotal;
     }
 
-    function setStatut(\Statut $statut) {
+    function setStatut($statut) {
         $this->statut = $statut;
     }
 
-    function setNumeroutilisateur(\Utilisateurs $numeroutilisateur) {
+    function setNumeroutilisateur($numeroutilisateur) {
         $this->numeroutilisateur = $numeroutilisateur;
-    }
-
-    function setIdlivre(\Doctrine\Common\Collections\Collection $idlivre) {
-        $this->idlivre = $idlivre;
     }
 
 

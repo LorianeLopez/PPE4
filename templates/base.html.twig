@@ -34,6 +34,7 @@
                 </li>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="nav-item dropdown">
+                        <input type="hidden" id="numLog" value="{{app.user.getNumero()}}" />
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: indianred"><b>{{app.user.getNom()}} {{app.user.getPrenom()}} </b></a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: peachpuff">
                             <a class="dropdown-item" style="color: indianred" href="../panier"><b>Panier</b></a>

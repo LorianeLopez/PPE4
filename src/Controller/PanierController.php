@@ -37,6 +37,12 @@ class PanierController extends AbstractController {
         }
         $taille = $_SESSION['panier']['produit'][$idLivre]['qte'];
 
+        if (isset($_SESSION['panier']['produit']['prixTotal'])) {
+            $_SESSION['panier']['produit']['prixTotal'] += $livres->getPrixLivre();
+        } else {
+            $_SESSION['panier']['produit']['prixTotal'] = $livres->getPrixLivre();
+        }
+
         $message = 'Cet article a bien été ajouté au panier !';
 
         return $this->render('panier/panier.html.twig', array('livres' => $livres, 'livresPanier' => 1, 'nbLivres' => $taille, 'message' => $message));

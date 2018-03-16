@@ -141,7 +141,8 @@
 
                 onAuthorize: function (data, actions) {
                     return actions.payment.execute().then(function (payment) {
-                        window.location = '../commandes';
+                        var numero = document.getElementById('numLog').value;
+                        window.location = '../commandesNew/' + numero;
                         // The payment is complete!
                         // You can now show a confirmation message to the customer
                     });
