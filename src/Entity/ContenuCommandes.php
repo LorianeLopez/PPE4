@@ -12,6 +12,17 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ContenuCommandes
 {
+    
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="idContenu", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idcontenu;
+    
+    
     /**
      * @var \Commandes
      *

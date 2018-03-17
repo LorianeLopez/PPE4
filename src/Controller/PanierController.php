@@ -19,14 +19,7 @@ class PanierController extends AbstractController {
         $url = $_SERVER['REQUEST_URI'];
         $size = strlen($url);
         $idLivre = substr($url, 8, $size);
-
-        if (isset($_SESSION['panier']['produit'][$idLivre])) {
-            $_SESSION['panier']['produit'][$idLivre]['qte'] ++;
-        } else {
-            $_SESSION['panier']['produit'][$idLivre] = array();
-            $_SESSION['panier']['produit'][$idLivre]['qte'] = 1;
-        }
-
+        
         $livres = $this->getDoctrine()
                 ->getRepository(Livres::class)
                 ->find($idLivre);
@@ -35,15 +28,34 @@ class PanierController extends AbstractController {
                     'Ce livre n\'est pas disponible'
             );
         }
-        $taille = $_SESSION['panier']['produit'][$idLivre]['qte'];
-
-        if (isset($_SESSION['panier']['prixTotal'])) {
-            $_SESSION['panier']['prixTotal'] += $livres->getPrixLivre();
-        } else {
-            $_SESSION['panier']['prixTotal'] = $livres->getPrixLivre();
+        
+        $stock = $livres->getStockLivre();
+        if (isset($_SESSION['panier']['produit'][$idLivre])) {
+                $quantite = $_SESSION['panier']['produit'][$idLivre]['qte'];
+                $nouveauStock = $stock - ($quantite+1);
         }
+        
+        if($nouveauStock >= 0){
+            if (isset($_SESSION['panier']['produit'][$idLivre])) {
+                $_SESSION['panier']['produit'][$idLivre]['qte'] ++;
+            } else {
+                $_SESSION['panier']['produit'][$idLivre] = array();
+                $_SESSION['panier']['produit'][$idLivre]['qte'] = 1;
+            }
 
-        $message = 'Cet article a bien été ajouté au panier !';
+            $taille = $_SESSION['panier']['produit'][$idLivre]['qte'];
+
+            if (isset($_SESSION['panier']['prixTotal'])) {
+                $_SESSION['panier']['prixTotal'] += $livres->getPrixLivre();
+            } else {
+                $_SESSION['panier']['prixTotal'] = $livres->getPrixLivre();
+            }
+
+            $message = 'Cet article a bien été ajouté au panier !';
+        }else{
+            $taille = 1;
+            $message = 'Le Stock est insuffisant';
+        }
 
         return $this->render('panier/panier.html.twig', array('livres' => $livres, 'livresPanier' => 1, 'nbLivres' => $taille, 'message' => $message));
     }
@@ -85,8 +97,7 @@ class PanierController extends AbstractController {
         }
         $nombreLivre = sizeof($livres);
         $message = 'Bienvenue dans votre panier !';
-
-
+        
         return $this->render('panier/panier.html.twig', array('livres' => $livres, 'livresPanier' => $nombreLivre, 'nbLivres' => $taille, 'quantites' => $quantite, 'message' => $message));
     }
 
@@ -98,6 +109,7 @@ class PanierController extends AbstractController {
 
         if (isset($_SESSION['panier']['produit'])) {
             unset($_SESSION['panier']['produit']);
+            unset($_SESSION['panier']['prixTotal']);
         }
 
         $livres = 'OOps';
@@ -117,11 +129,26 @@ class PanierController extends AbstractController {
         $size = strlen($url);
         $idLivre = substr($url, 14, $size);
 
+        $livre = $this->getDoctrine()
+                ->getRepository(Livres::class)
+                ->findOneBy([
+                        'idLivre' => $idLivre
+                    ]);
+        if (!$livre) {
+            throw $this->createNotFoundException(
+                    'Ce livre n\'est pas disponible'
+            );
+        }
+
         if (isset($_SESSION['panier']['produit'][$idLivre])) {
+            $quantite = $_SESSION['panier']['produit'][$idLivre]['qte'];
+            $prix = $livre->getPrixLivre() * $quantite;
+            $_SESSION['panier']['prixTotal'] -= $prix;
             unset($_SESSION['panier']['produit'][$idLivre]);
         }
         if ($_SESSION['panier']['produit'] == null) {
             unset($_SESSION['panier']['produit']);
+            unset($_SESSION['panier']['prixTotal']);
         }
 
         $livres = 'OOps';
@@ -139,11 +166,24 @@ class PanierController extends AbstractController {
         $url = $_SERVER['REQUEST_URI'];
         $size = strlen($url);
         $idLivre = substr($url, 12, $size);
+        
+        $livre = $this->getDoctrine()
+                ->getRepository(Livres::class)
+                ->findOneBy([
+                        'idLivre' => $idLivre
+                    ]);
+        if (!$livre) {
+            throw $this->createNotFoundException(
+                    'Ce livre n\'est pas disponible'
+            );
+        }
 
         if (isset($_SESSION['panier']['produit'][$idLivre])) {
             $_SESSION['panier']['produit'][$idLivre]['qte'] --;
+            $_SESSION['panier']['prixTotal'] -= $livre->getPrixLivre();
         } else {
             $_SESSION['panier']['produit'][$idLivre]['qte'] = 0;
+            $_SESSION['panier']['prixTotal'] -= $livre->getPrixLivre();
         }
 
         if ($_SESSION['panier']['produit'][$idLivre]['qte'] <= 0) {
@@ -151,6 +191,7 @@ class PanierController extends AbstractController {
         }
         if (empty($_SESSION["panier"]["produit"])) {
             unset($_SESSION['panier']['produit']);
+            unset($_SESSION['panier']['prixTotal']);
         }
 
         $livres = 'Oops';
@@ -169,17 +210,40 @@ class PanierController extends AbstractController {
         $url = $_SERVER['REQUEST_URI'];
         $size = strlen($url);
         $idLivre = substr($url, 11, $size);
-        if (isset($_SESSION['panier']['produit'][$idLivre])) {
-            $_SESSION['panier']['produit'][$idLivre]['qte'] ++;
-        } else {
-            $_SESSION['panier']['produit'][$idLivre]['qte'] = 1;
+        
+        $livre = $this->getDoctrine()
+                ->getRepository(Livres::class)
+                ->findOneBy([
+                        'idLivre' => $idLivre
+                    ]);
+        if (!$livre) {
+            throw $this->createNotFoundException(
+                    'Ce livre n\'est pas disponible'
+            );
         }
-
+        
+        $stock = $livre->getStockLivre();
+        if (isset($_SESSION['panier']['produit'][$idLivre])) {
+                $quantite = $_SESSION['panier']['produit'][$idLivre]['qte'];
+                $nouveauStock = $stock - ($quantite+1);
+        }
+        
+        if($nouveauStock >= 0){
+            if (isset($_SESSION['panier']['produit'][$idLivre])) {
+                $_SESSION['panier']['produit'][$idLivre]['qte'] ++;
+                $_SESSION['panier']['prixTotal'] += $livre->getPrixLivre();
+            } else {
+                $_SESSION['panier']['produit'][$idLivre]['qte'] = 1;
+                $_SESSION['panier']['prixTotal'] += $livre->getPrixLivre();
+            }
+            $message = 'Cet élément à été ajouté !';
+        }else{
+            $message = 'Le Stock n\'est pas suffisant';
+        }
+        
         $livres = 'Oops';
         $taille = 2;
-        $message = 'Cet élément à été ajouté !';
-
-
+        
         return $this->render('panier/panier.html.twig', array('livres' => $livres, 'livresPanier' => 1, 'nbLivres' => $taille, 'message' => $message));
     }
 

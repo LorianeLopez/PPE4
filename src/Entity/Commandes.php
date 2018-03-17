@@ -64,7 +64,7 @@ class Commandes
         return $this->prixtotal;
     }
 
-    function getStatut(): \Statut {
+    function getStatut(){
         return $this->statut;
     }
 

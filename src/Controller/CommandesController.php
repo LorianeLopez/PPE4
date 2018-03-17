@@ -20,7 +20,7 @@ class CommandesController extends AbstractController {
      * @Route("/commandesNew/{numero}", name="NewCommandes")
      * @return Response
      */
-    public function commandes(\Doctrine\ORM\EntityManagerInterface $em) {
+    public function commandesNew(\Doctrine\ORM\EntityManagerInterface $em) {
 
         $url = $_SERVER['REQUEST_URI'];
         $size = strlen($url);
@@ -67,7 +67,7 @@ class CommandesController extends AbstractController {
 
             foreach ($_SESSION['panier']['produit'] as $livre => $id) {
                 if (isset($_SESSION['panier']['produit'][$livre])) {
-                    
+
                     $contenu = new ContenuCommandes();
                     $contenu->setIdcommande($laCommande);
                     $leLivre = $this->getDoctrine()
@@ -80,20 +80,72 @@ class CommandesController extends AbstractController {
                                 'Ce livre n\'est pas disponible'
                         );
                     }
-                    $contenu->setIdlivre($leLivre);
+                    $stock = $leLivre->getStockLivre();
                     $quantite = $_SESSION['panier']['produit'][$livre]['qte'];
-                    $contenu->setNbLivre($quantite);
-                    $em->persist($contenu);
-                    $em->flush();
+                    $nouveauStock = $stock - $quantite;
+                    if ($nouveauStock >= 0) {
+                        $contenu->setIdlivre($leLivre);
+                        $contenu->setNbLivre($quantite);
+                        $em->persist($contenu);
+                        $em->flush();
+
+                        $leLivre->setStockLivre($nouveauStock);
+                        $em->persist($leLivre);
+                        $em->flush();
+                    }
                 }
             }
-            unset($_SESSION['panier']['produit']);
+            unset($_SESSION['panier']);
             return $this->redirectToRoute("commandes");
         }
         $livres = 'Ooups';
         $taille = 2;
         $message = 'Une erreur est survenue, veuillez recommencer.';
         return $this->render('panier/panier.html.twig', array('livres' => $livres, 'livresPanier' => 1, 'nbLivres' => $taille, 'message' => $message));
+    }
+
+    /**
+     * @Route("/commandes/{numero}", name="Commandes")
+     * @return Response
+     */
+    public function commandes(\Doctrine\ORM\EntityManagerInterface $em) {
+
+        $url = $_SERVER['REQUEST_URI'];
+        $size = strlen($url);
+        $numero = substr($url, 11, $size);
+        $leNumero = $this->getDoctrine()
+                ->getRepository(Utilisateurs::class)
+                ->find($numero);
+        if (!$leNumero) {
+            throw $this->createNotFoundException(
+                    'Cet utilisateur n\'est pas disponible'
+            );
+        }
+
+        $commandes = $this->getDoctrine()
+                ->getRepository(Commandes::class)
+                ->findBy([
+            'numeroutilisateur' => $leNumero
+        ]);
+        if (!$commandes) {
+            throw $this->createNotFoundException(
+                    'Aucune commande n\'est disponible'
+            );
+        }
+        
+            $contenu = $this->getDoctrine()
+                    ->getRepository(ContenuCommandes::class)
+                    ->findAll();
+            if (!$contenu) {
+                throw $this->createNotFoundException(
+                        'Aucun contenu n\'est disponible'
+                );
+            }
+
+
+        $taille = sizeof($commandes);
+
+        return $this->render('commandes/commandes.html.twig', array('commandes' => $commandes, 'contenus' => $contenu, 'nbLivres' => $taille));
     }
 
 }
