@@ -14,16 +14,6 @@ class ContenuCommandes
 {
     
     /**
-     * @var int
-     *
-     * @ORM\Column(name="idContenu", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idcontenu;
-    
-    
-    /**
      * @var \Commandes
      *
      * @ORM\ManyToOne(targetEntity="Commandes")
@@ -75,6 +65,16 @@ class ContenuCommandes
     function setNbLivre($nbLivre) {
         $this->nbLivre = $nbLivre;
     }
+    
+    function getIdcontenu() {
+        return $this->idcontenu;
+    }
+
+    function setIdcontenu($idcontenu) {
+        $this->idcontenu = $idcontenu;
+    }
+
+
 
 
 

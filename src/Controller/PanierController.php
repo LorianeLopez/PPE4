@@ -33,6 +33,8 @@ class PanierController extends AbstractController {
         if (isset($_SESSION['panier']['produit'][$idLivre])) {
                 $quantite = $_SESSION['panier']['produit'][$idLivre]['qte'];
                 $nouveauStock = $stock - ($quantite+1);
+        }else{
+            $nouveauStock = $stock;
         }
         
         if($nouveauStock >= 0){

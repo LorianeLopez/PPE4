@@ -20,6 +20,11 @@ class Commandes
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idcommande;
+    
+    
+    public $contenu;
+    
+    public $tailleContenu;
 
     /**
      * @var float
@@ -88,6 +93,25 @@ class Commandes
         $this->numeroutilisateur = $numeroutilisateur;
     }
 
+    function getIdcontenu(){
+        return $this->idcontenu;
+    }
 
+
+    public function leContenu($lesLivres){
+        $this->contenu = $lesLivres;
+    }
+    
+    public function recupContenu(){
+        return $this->contenu;
+    }
+    
+    public function laTaille($taille){
+        $this->tailleContenu = $taille;
+    }
+    
+    public function recupTaille(){
+        return $this->tailleContenu;
+    }
 
 }

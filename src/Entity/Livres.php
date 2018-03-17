@@ -98,7 +98,7 @@ class Livres
         return $this->stockLivre;
     }
 
-    function getSagaLivres(): \Sagas {
+    function getSagaLivres(){
         return $this->sagaLivres;
     }
 
@@ -126,7 +126,7 @@ class Livres
         $this->stockLivre = $stockLivre;
     }
 
-    function setSagaLivres(\Sagas $sagaLivres) {
+    function setSagaLivres($sagaLivres) {
         $this->sagaLivres = $sagaLivres;
     }
 

@@ -55,6 +55,8 @@ class CommandesController extends AbstractController {
             $em->flush();
 
             $idCommande = $commande->getIdcommande();
+            
+            
             $laCommande = $this->getDoctrine()
                     ->getRepository(Commandes::class)
                     ->find($idCommande);
@@ -95,8 +97,9 @@ class CommandesController extends AbstractController {
                     }
                 }
             }
+            
             unset($_SESSION['panier']);
-            return $this->redirectToRoute("commandes");
+            return $this->redirectToRoute("panier");
         }
         $livres = 'Ooups';
         $taille = 2;
@@ -105,7 +108,7 @@ class CommandesController extends AbstractController {
     }
 
     /**
-     * @Route("/commandes/{numero}", name="Commandes")
+     * @Route("/commandes/{numero}", name="Commandes{numero}")
      * @return Response
      */
     public function commandes(\Doctrine\ORM\EntityManagerInterface $em) {
@@ -125,27 +128,34 @@ class CommandesController extends AbstractController {
         $commandes = $this->getDoctrine()
                 ->getRepository(Commandes::class)
                 ->findBy([
-            'numeroutilisateur' => $leNumero
-        ]);
+                        'numeroutilisateur' => $leNumero->getNumero()
+                    ]);;
         if (!$commandes) {
             throw $this->createNotFoundException(
                     'Aucune commande n\'est disponible'
             );
         }
         
+        $taille = sizeof($commandes);
+        
+        foreach($commandes as $uneCommande){
             $contenu = $this->getDoctrine()
                     ->getRepository(ContenuCommandes::class)
-                    ->findAll();
+                    ->findBy([
+                        'idcommande' => $uneCommande->getIdCommande()
+                    ]);
             if (!$contenu) {
                 throw $this->createNotFoundException(
                         'Aucun contenu n\'est disponible'
                 );
             }
+            $uneCommande->leContenu($contenu);
+            $size = sizeof($uneCommande->recupContenu());
+            $uneCommande->laTaille($size);
+        }
+        
 
-
-        $taille = sizeof($commandes);
-
-        return $this->render('commandes/commandes.html.twig', array('commandes' => $commandes, 'contenus' => $contenu, 'nbLivres' => $taille));
+        return $this->render('commandes/commandes.html.twig', array('commandes' => $commandes,'nbLivres' => $taille));
     }
 
 }
