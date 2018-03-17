@@ -5,14 +5,11 @@ namespace App\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Entity\Sagas;
 use App\Entity\Livres;
 use App\Entity\Commandes;
 use App\Entity\Statut;
 use App\Entity\Utilisateurs;
 use App\Entity\ContenuCommandes;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Common\Collections\Collection;
 
 class CommandesController extends AbstractController {
 
@@ -60,7 +57,7 @@ class CommandesController extends AbstractController {
             $laCommande = $this->getDoctrine()
                     ->getRepository(Commandes::class)
                     ->find($idCommande);
-            if (!$leStatut) {
+            if (!$laCommande) {
                 throw $this->createNotFoundException(
                         'Cette commande n\'est pas disponible'
                 );

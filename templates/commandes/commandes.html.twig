@@ -17,28 +17,32 @@
                     </div>
                     <br>
                     {% for i in 0..commande.recupTaille - 1%}
-                    <br> 
-                    <div class="row">
-                        <div class="col-md-3">
-                            {% set path = commande.recupContenu[i].getIdlivre.getCouvertureLivre()%} 
-                            <img style=" max-width: 100%; max-height: 100%; width: 135px; height: 200px; margin-top: 15px; margin-left: 80px" alt="" src="{{asset(path)}}">
+                        <br> 
+                        <div class="row">
+                            <div class="col-md-3">
+                                {% set path = commande.recupContenu[i].getIdlivre.getCouvertureLivre()%} 
+                                <img style=" max-width: 100%; max-height: 100%; width: 135px; height: 200px; margin-top: 15px; margin-left: 80px" alt="" src="{{asset(path)}}">
+                            </div>
+                            <div class="col-md-5">
+                                <h4 style="margin-top: 50px">{{commande.recupContenu[i].getIdlivre.getTitreLivre()}}</h4>
+                                <br>
+                            </div>
+                            <div class="col-1"></div>
+                            <div class="col-md-3" id="centre" >
+                                <h4 style="margin-top: 60px"> {{"%.2f"|format(commande.recupContenu[i].getIdlivre.getPrixLivre())}} €</h4>
+                            </div>
                         </div>
-                        <div class="col-md-5">
-                            <h4 style="margin-top: 50px">{{commande.recupContenu[i].getIdlivre.getTitreLivre()}}</h4>
-                            <br>
-                        </div>
-                        <div class="col-1"></div>
-                        <div class="col-md-3" id="centre" >
-                            <h4 style="margin-top: 100px"> {{"%.2f"|format(commande.recupContenu[i].getIdlivre.getPrixLivre())}} €</h4>
-                        </div>
-                    </div>
                     {% endfor %}
-                    <br>
+                    <a class="btn btn-primary" href="../print/{{commande.getIdCommande}}" target="_blank"  style="color: white; text-decoration: none; margin-top: 80px; margin-left: 900px">
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                        Générer en PDF
+                    </a>
+                        <br><br>
                     <hr style="width: 100%"/> 
-                    {% endfor %}
-                    <br><br>
-                    </div>
-                </div>
+                {% endfor %}
+                <br><br>
             </div>
+        </div>
+    </div>
 
-            {% endblock body %}
+{% endblock body %}
