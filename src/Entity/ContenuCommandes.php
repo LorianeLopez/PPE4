@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Commandes
  *
- * @ORM\Table(name="contenu_commandes", indexes={@ORM\Index(name="idCommande", columns={"idCommande"}), @ORM\Index(name="idLivre", columns={"idLivre"})})
+ * @ORM\Table(name="contenu_Commandes", indexes={@ORM\Index(name="idCommande", columns={"idCommande"}), @ORM\Index(name="idLivre", columns={"idLivre"})})
  * @ORM\Entity
  */
 class ContenuCommandes
@@ -28,7 +28,7 @@ class ContenuCommandes
      *
      * @ORM\ManyToOne(targetEntity="Livres")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idLivre", referencedColumnName="idLivre")
+     *   @ORM\JoinColumn(name="idLivre", referencedColumnName="id_livre")
      * })
      * @ORM\Id
      */
@@ -37,15 +37,15 @@ class ContenuCommandes
     /**
      * @var int
      *
-     * @ORM\Column(name="nbLivre", type="int", nullable=false)
+     * @ORM\Column(name="nbLivre", type="integer", nullable=false)
      */
     private $nbLivre;
 
-    function getIdcommande(): \Commandes {
+    function getIdcommande() {
         return $this->idcommande;
     }
 
-    function getIdlivre(): \Livres {
+    function getIdlivre(){
         return $this->idlivre;
     }
 
@@ -53,11 +53,11 @@ class ContenuCommandes
         return $this->nbLivre;
     }
 
-    function setIdcommande(\Commandes $idcommande) {
+    function setIdcommande($idcommande) {
         $this->idcommande = $idcommande;
     }
 
-    function setIdlivre(\Livres $idlivre) {
+    function setIdlivre($idlivre) {
         $this->idlivre = $idlivre;
     }
 

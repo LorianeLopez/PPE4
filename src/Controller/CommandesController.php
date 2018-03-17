@@ -10,6 +10,7 @@ use App\Entity\Livres;
 use App\Entity\Commandes;
 use App\Entity\Statut;
 use App\Entity\Utilisateurs;
+use App\Entity\ContenuCommandes;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Collections\Collection;
 
@@ -33,12 +34,10 @@ class CommandesController extends AbstractController {
             );
         }
 
-        $livres = array();
-
         $commande = new Commandes();
 
         if (isset($_SESSION['panier']['produit'])) {
-            $prix = $_SESSION['panier']['produit']['prixTotal'];
+            $prix = $_SESSION['panier']['prixTotal'];
             $statut = 1;
             $leStatut = $this->getDoctrine()
                     ->getRepository(Statut::class)
@@ -48,33 +47,53 @@ class CommandesController extends AbstractController {
                         'Ce statut n\'est pas disponible'
                 );
             }
-
-            foreach ($_SESSION['panier']['produit'] as $livre => $id) {
-                $donnees = array();
-                $leLivre = $this->getDoctrine()
-                        ->getRepository(Livres::class)
-                        ->find($livre);
-                if (!$leStatut) {
-                    throw $this->createNotFoundException(
-                            'Ce livre n\'est pas disponible'
-                    );
-                }
-                $quantite = $_SESSION['panier']['produit'][$livre]['qte'];
-                array_push($donnees, $leLivre);
-                array_push($donnees, $quantite);
-                array_push($livres, $donnees);
-            }
-            $commande->setIdlivre($livres);
             $commande->setNumeroutilisateur($leNumero);
             $commande->setPrixtotal($prix);
             $commande->setStatut($leStatut);
+
             $em->persist($commande);
             $em->flush();
-//            unset($_SESSION['panier']['produit']);
-//            return $this->redirectToRoute("commandes");
-        }
 
-//        return $this->render('produits/allBook.html.twig', array('sagas' => $sagas, 'livres' => $livres, 'nbLivres' => $taille));
+            $idCommande = $commande->getIdcommande();
+            $laCommande = $this->getDoctrine()
+                    ->getRepository(Commandes::class)
+                    ->find($idCommande);
+            if (!$leStatut) {
+                throw $this->createNotFoundException(
+                        'Cette commande n\'est pas disponible'
+                );
+            }
+
+
+            foreach ($_SESSION['panier']['produit'] as $livre => $id) {
+                if (isset($_SESSION['panier']['produit'][$livre])) {
+                    
+                    $contenu = new ContenuCommandes();
+                    $contenu->setIdcommande($laCommande);
+                    $leLivre = $this->getDoctrine()
+                            ->getRepository(Livres::class)
+                            ->findOneBy([
+                        'idLivre' => $livre
+                    ]);
+                    if (!$leLivre) {
+                        throw $this->createNotFoundException(
+                                'Ce livre n\'est pas disponible'
+                        );
+                    }
+                    $contenu->setIdlivre($leLivre);
+                    $quantite = $_SESSION['panier']['produit'][$livre]['qte'];
+                    $contenu->setNbLivre($quantite);
+                    $em->persist($contenu);
+                    $em->flush();
+                }
+            }
+            unset($_SESSION['panier']['produit']);
+            return $this->redirectToRoute("commandes");
+        }
+        $livres = 'Ooups';
+        $taille = 2;
+        $message = 'Une erreur est survenue, veuillez recommencer.';
+        return $this->render('panier/panier.html.twig', array('livres' => $livres, 'livresPanier' => 1, 'nbLivres' => $taille, 'message' => $message));
     }
 
 }

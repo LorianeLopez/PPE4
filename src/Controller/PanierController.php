@@ -37,10 +37,10 @@ class PanierController extends AbstractController {
         }
         $taille = $_SESSION['panier']['produit'][$idLivre]['qte'];
 
-        if (isset($_SESSION['panier']['produit']['prixTotal'])) {
-            $_SESSION['panier']['produit']['prixTotal'] += $livres->getPrixLivre();
+        if (isset($_SESSION['panier']['prixTotal'])) {
+            $_SESSION['panier']['prixTotal'] += $livres->getPrixLivre();
         } else {
-            $_SESSION['panier']['produit']['prixTotal'] = $livres->getPrixLivre();
+            $_SESSION['panier']['prixTotal'] = $livres->getPrixLivre();
         }
 
         $message = 'Cet article a bien été ajouté au panier !';

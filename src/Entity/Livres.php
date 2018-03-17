@@ -67,13 +67,6 @@ class Livres
     private $sagaLivres;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Commandes", mappedBy="idlivre")
-     */
-    private $idcommande;
-
-    /**
      * Constructor
      */
     public function __construct()

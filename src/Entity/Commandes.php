@@ -49,21 +49,6 @@ class Commandes
     private $numeroutilisateur;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Livres", inversedBy="idcommande")
-     * @ORM\JoinTable(name="contenu_commandes",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="idCommande", referencedColumnName="idCommande")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="idLivre", referencedColumnName="id_livre")
-     *   }
-     * )
-     */
-    private $idlivre;
-
-    /**
      * Constructor
      */
     public function __construct()
