@@ -59,6 +59,8 @@ class Sagas
         $this->nbLivresSaga = $nbLivresSaga;
     }
 
-
+    public function __toString(){
+        return $this->titreSaga;
+    }
 
 }

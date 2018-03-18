@@ -114,4 +114,7 @@ class Commandes
         return $this->tailleContenu;
     }
 
+    public function __toString() {
+        return $this->idcommande;
+    }
 }

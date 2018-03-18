@@ -5,10 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
-use App\Entity\Livres;
 use App\Entity\Commandes;
-use App\Entity\Statut;
-use App\Entity\Utilisateurs;
 use App\Entity\ContenuCommandes;
 
 class PrintController extends AbstractController {

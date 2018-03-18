@@ -37,10 +37,10 @@
                         <input type="hidden" id="numLog" value="{{app.user.getNumero()}}" />
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: indianred"><b>{{app.user.getNom()}} {{app.user.getPrenom()}} </b></a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: peachpuff">
-                            <a class="dropdown-item" style="color: indianred" href="../panier"><b>Panier</b></a>
-                            <a class="dropdown-item" style="color: indianred" href="../commandes/{{app.user.getNumero()}}"><b>Commandes</b></a>
+                            <a class="dropdown-item men" style="color: indianred;" href="../panier"><i class="fab fa-pagelines"></i>  <b>Panier</b></a>
+                            <a class="dropdown-item men" style="color: indianred" href="../commandes/{{app.user.getNumero()}}"><i class="fab fa-phoenix-framework"></i> <b>Commandes</b></a>
                             {% if app.user.getRole() == "ROLE_ADMIN" %}
-                                <a class="dropdown-item" style="color: indianred" href="../admin"><b>Administration</b></a>
+                                <a class="dropdown-item men" style="color: indianred" href="../admin"><i class="fas fa-unlock"></i> <b>Administration</b></a>
                             {% endif %}
                         </div>
                     </li>

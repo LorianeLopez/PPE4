@@ -44,6 +44,8 @@ class Statut
         $this->libellestatut = $libellestatut;
     }
 
-
+    public function __toString() {
+        return $this->libellestatut;
+    }
 
 }

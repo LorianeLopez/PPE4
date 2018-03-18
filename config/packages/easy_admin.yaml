@@ -1,10 +1,22 @@
 easy_admin:
+    site_name: 'BookStore'
     design:
         form_theme: 'horizontal'
-        
+        brand_color: 'indianred'
+        color_scheme: 'light'
+        assets:
+            favicon: '/build/img/bookstore.ico'
         menu:
             - label: 'Utilisateurs'
             - { entity: 'Utilisateurs', icon: 'users'}
+            
+            - label: 'Produits'
+            - { entity: 'Sagas', icon: 'bookmark'}
+            - { entity: 'Livres', icon: 'book'}
+            
+            - label: 'Commandes'
+            - { entity: 'Commandes', icon: 'suitcase'}
+            - { entity: 'Contenus', icon: 'envira'}
                        
             - label: 'Liens internes'
             - { label: 'Notre Site', route: "accueil", icon: "calendar"} 
@@ -14,6 +26,7 @@ easy_admin:
         Utilisateurs:
             class: App\Entity\Utilisateurs
             list:
+                action: ['BackOffice']
                 title: "Liste des utilisateurs"
                 fields:
                     - {property: 'numero'}
@@ -24,7 +37,6 @@ easy_admin:
                     - {property: 'role'}
             form:
                 title: "Ajout d'un utilisateur"
-                
                 fields:
                     - {property: 'numero', type: 'text'}
                     - {property: 'nom', type: 'text'}
@@ -33,3 +45,94 @@ easy_admin:
                     - {property: 'is_active', type: 'checkbox'}
                     - {property: 'role', type: 'choice', type_options:
                             {choices: {'Utilisateur':'ROLE_USER', 'Admin':'ROLE_ADMIN'}}}
+                            
+        Livres:
+            class: App\Entity\Livres
+            list:
+                title: "Nos Produits"
+                fields:
+                    - {property: 'idLivre'}
+                    - {property: 'titreLivre', type: 'text'}
+                    - {property: 'resumeLivre', type: 'text'}
+                    - {property: 'prixLivre', type: 'text'}
+                    - {property: 'couvertureLivre', type: 'text'}
+                    - {property: 'stockLivre', type: 'text'}
+                    - {property: 'sagaLivres'}
+            form:
+                title: "Ajout d'un produit"
+                fields:
+                    - {property: 'titreLivre', type: 'text'}
+                    - {property: 'resumeLivre', type: 'text'}
+                    - {property: 'prixLivre', type: 'text'}
+                    - {property: 'couvertureLivre', type: 'text'}
+                    - {property: 'stockLivre', type: 'text'}
+                    - {property: 'sagaLivres'}
+                    
+        Sagas:
+            class: App\Entity\Sagas
+            list:
+                title: "Nos Sagas"
+                fields:
+                    - {property: 'titreSaga', type: 'text'}
+                    - {property: 'auteurSaga', type: 'text'}
+                    - {property: 'NbLivresSaga', type: 'text'}
+            form:
+                title: "Ajout d'une Saga"
+                fields:
+                    - {property: 'titreSaga', type: 'text'}
+                    - {property: 'auteurSaga', type: 'text'}
+                    - {property: 'NbLivresSaga', type: 'text'}
+                    
+        Commandes:
+            class: App\Entity\Commandes
+            list:
+                title: "Les Commandes"
+                fields:
+                    - {property: 'idcommande'}
+                    - {property: 'numeroutilisateur'}
+                    - {property: 'prixtotal', type: 'text'}
+                    - {property: 'statut'}
+                    
+            form:
+                title: "Ajout d'une Commande"
+                fields:
+                    - {property: 'idcommande'}
+                    - {property: 'numeroutilisateur'}
+                    - {property: 'prixtotal', type: 'text'}
+                    - {property: 'statut'}
+        
+        Contenus:
+            class: App\Entity\Commandes
+            list:
+                title: "Les Commandes"
+                fields:
+                    - {property: 'idcommande'}
+                    - {property: 'numeroutilisateur'}
+                    - {property: 'prixtotal', type: 'text'}
+                    - {property: 'statut'}
+                    
+            form:
+                title: "Ajout d'une Commande"  
+                fields:
+                    - {property: 'idcommande'}
+                    - {property: 'numeroutilisateur'}
+                    - {property: 'prixtotal', type: 'text'}
+                    - {property: 'statut'}
+                    
+#        Contenus:
+#            class: App\Entity\ContenuCommandes
+#            list:
+#                title: "Les Contenus"
+#                fields:
+#                    - {property: 'idcommande'}
+#                    - {property: 'idlivre'}
+#                    - {property: 'nbLivre', type: 'text'}
+#                    
+#            form:
+#                title: "Ajout d'un Contenu"
+#                
+#                fields:
+#                    - {property: 'idcommande'}
+#                    - {property: 'idlivre'}
+#                    - {property: 'nbLivre', type: 'text'}
+                    

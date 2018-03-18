@@ -130,6 +130,9 @@ class Livres
         $this->sagaLivres = $sagaLivres;
     }
 
+    function __toString() {
+        return $this->idLivre;
+    }
 
 
 }
