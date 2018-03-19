@@ -1,3 +1,28 @@
 {% extends "base.html.twig" %}
 {% block body %}
+    <div class="container">
+        <div class="col-2" style="position: absolute; top: 125px; left: 145px">
+                <a href="../produits" style="color: indianred">Tous</a>
+                <hr />
+                {% for saga in sagas %}
+                    {% set titre = saga.getTitreSaga %}
+                    <a href="../produits/{{titre|url_encode}}" style="color: indianred">{{saga.getTitreSaga}}</a>
+                    <hr />
+                {% endfor %}
+                <br><br>
+            </div>
+        <div class="row" style='font-size:40px; text-align: center; margin-left: 260px'>
+            <div class="col-10">
+                <div><u><b>Bienvenue ! </b></u></div>
+            </div>
+        </div>
+        <div class="row" style="text-align: center">
+            <div class="col-9" style="position: absolute; top: 165px; left: 305px; font-size:18px">
+                <img src="{{asset("build/img/logo_bookstore.png")}}" alt="" style="width: 400px; height: 400px; margin-top: 3px; margin-right: 6px; margin-left: -6px"/>
+                <br><br>
+                <legend style="font-size: 15px"><b><i>C'est si simple de tourner une page...</i></b></legend>
+            </div>
+        </div>
+    </div>
+
 {% endblock body %}

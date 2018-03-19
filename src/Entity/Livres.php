@@ -131,7 +131,7 @@ class Livres
     }
 
     function __toString() {
-        return $this->idLivre;
+        return strval($this->titreLivre);
     }
 
 

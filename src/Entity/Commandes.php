@@ -115,6 +115,6 @@ class Commandes
     }
 
     public function __toString() {
-        return $this->idcommande;
+        return strval($this->idcommande);
     }
 }

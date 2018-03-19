@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Utilisateurs;
+use Doctrine\ORM\EntityManagerInterface;
 
 class RegisterController extends AbstractController{
     
@@ -14,7 +15,7 @@ class RegisterController extends AbstractController{
      * @param \App\Controller\Request $request
      * @return type
      */
-    public function register(\Doctrine\ORM\EntityManagerInterface $em, Request $request){
+    public function register(EntityManagerInterface $em, Request $request){
         $tache = new Utilisateurs();
         $form = $this->createForm(\App\Form\RegisterType::class, $tache);
         $form->handleRequest($request);

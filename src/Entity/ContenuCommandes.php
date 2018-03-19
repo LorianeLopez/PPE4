@@ -14,13 +14,21 @@ class ContenuCommandes
 {
     
     /**
+     * @var int
+     *
+     * @ORM\Column(name="idContenu", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idcontenu;
+    
+    /**
      * @var \Commandes
      *
      * @ORM\ManyToOne(targetEntity="Commandes")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idCommande", referencedColumnName="idCommande")
      * })
-     * @ORM\Id
      */
     private $idcommande;
 
@@ -31,7 +39,6 @@ class ContenuCommandes
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idLivre", referencedColumnName="id_livre")
      * })
-     * @ORM\Id
      */
     private $idlivre;
 

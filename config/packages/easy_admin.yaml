@@ -20,13 +20,13 @@ easy_admin:
                        
             - label: 'Liens internes'
             - { label: 'Notre Site', route: "accueil", icon: "calendar"} 
+            - { label: 'Nos Statistiques', route: "BackOffice", icon: "signal"} 
             
             
     entities:
         Utilisateurs:
             class: App\Entity\Utilisateurs
             list:
-                action: ['BackOffice']
                 title: "Liste des utilisateurs"
                 fields:
                     - {property: 'numero'}
@@ -100,39 +100,23 @@ easy_admin:
                     - {property: 'numeroutilisateur'}
                     - {property: 'prixtotal', type: 'text'}
                     - {property: 'statut'}
-        
+                    
         Contenus:
-            class: App\Entity\Commandes
+            class: App\Entity\ContenuCommandes
             list:
-                title: "Les Commandes"
+                title: "Les Contenus"
                 fields:
+                    - {property: 'idcontenu'}
                     - {property: 'idcommande'}
-                    - {property: 'numeroutilisateur'}
-                    - {property: 'prixtotal', type: 'text'}
-                    - {property: 'statut'}
+                    - {property: 'idlivre'}
+                    - {property: 'nbLivre', type: 'text'}
                     
             form:
-                title: "Ajout d'une Commande"  
+                title: "Ajout d'un Contenu"
+                
                 fields:
+                    - {property: 'idcontenu'}
                     - {property: 'idcommande'}
-                    - {property: 'numeroutilisateur'}
-                    - {property: 'prixtotal', type: 'text'}
-                    - {property: 'statut'}
-                    
-#        Contenus:
-#            class: App\Entity\ContenuCommandes
-#            list:
-#                title: "Les Contenus"
-#                fields:
-#                    - {property: 'idcommande'}
-#                    - {property: 'idlivre'}
-#                    - {property: 'nbLivre', type: 'text'}
-#                    
-#            form:
-#                title: "Ajout d'un Contenu"
-#                
-#                fields:
-#                    - {property: 'idcommande'}
-#                    - {property: 'idlivre'}
-#                    - {property: 'nbLivre', type: 'text'}
+                    - {property: 'idlivre'}
+                    - {property: 'nbLivre', type: 'text'}
                     

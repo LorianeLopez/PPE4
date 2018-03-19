@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Livres;
 use App\Entity\Commandes;
 use App\Entity\Statut;
@@ -17,7 +18,7 @@ class CommandesController extends AbstractController {
      * @Route("/commandesNew/{numero}", name="NewCommandes")
      * @return Response
      */
-    public function commandesNew(\Doctrine\ORM\EntityManagerInterface $em) {
+    public function commandesNew(EntityManagerInterface $em) {
 
         $url = $_SERVER['REQUEST_URI'];
         $size = strlen($url);
@@ -35,7 +36,7 @@ class CommandesController extends AbstractController {
 
         if (isset($_SESSION['panier']['produit'])) {
             $prix = $_SESSION['panier']['prixTotal'];
-            $statut = 1;
+            $statut = 4;
             $leStatut = $this->getDoctrine()
                     ->getRepository(Statut::class)
                     ->find($statut);
@@ -108,7 +109,7 @@ class CommandesController extends AbstractController {
      * @Route("/commandes/{numero}", name="Commandes{numero}")
      * @return Response
      */
-    public function commandes(\Doctrine\ORM\EntityManagerInterface $em) {
+    public function commandes(EntityManagerInterface $em) {
 
         $url = $_SERVER['REQUEST_URI'];
         $size = strlen($url);

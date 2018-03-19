@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% if app.user.getRole() == "ROLE_ADMIN" %}
+            <div class="container">
+                <div class="row" style='font-size:32px; text-align: center; margin-left: -60px'>
+                    <div class="col-12">
+                        <div><u><b>Nos Statistiques</b></u></div>
+                    </div>
+                </div>
+                <div class="row" style="text-align: center">
+                    <div class="col-10" style="position: absolute; top: 185px; left: 145px; font-size:18px">
+                        <div style="color: indianred"><i>Nombre de clients</i> : <b>{{NbUtilisateurs}}</b></div>
+                        <div class="col-12" style="margin-left: -15px"><hr /></div>
+                        <div style="color: indianred"><i>Nombre de produits</i> : <b>{{NbLivres}}</b></div>
+                        <div class="col-12" style="margin-left: -15px"><hr /></div>
+                        <div style="color: indianred"><i>Nombre de commandes validées</i> : <b>{{NbCommandes}}</b></div>
+                        <div class="col-12" style="margin-left: -15px"><hr /></div>
+                        <div style="color: indianred"><i>Chiffre d'Affaire</i> : <b>{{"%.2f"|format(chiffreAffaire)}}</b> €</div>
+                        <br><br>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+
+{% endblock body %}
