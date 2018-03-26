@@ -20,6 +20,15 @@ class CommandesController extends AbstractController {
      */
     public function commandesNew(EntityManagerInterface $em) {
 
+  //      $address_city = $_POST["adress_city"];
+//        $address_city = $_POST["address_city"];
+//        $address_country = $_POST["address_country"];
+//        $address_street = $_POST["address_street"];
+        
+      //  dump($address_city);
+        
+        //die;
+
         $url = $_SERVER['REQUEST_URI'];
         $size = strlen($url);
         $numero = substr($url, 14, $size);
@@ -45,6 +54,8 @@ class CommandesController extends AbstractController {
                         'Ce statut n\'est pas disponible'
                 );
             }
+            date_default_timezone_set('Europe/Paris');
+            $commande->setDate(date("d-m-Y H:i:s"));
             $commande->setNumeroutilisateur($leNumero);
             $commande->setPrixtotal($prix);
             $commande->setStatut($leStatut);
@@ -53,8 +64,8 @@ class CommandesController extends AbstractController {
             $em->flush();
 
             $idCommande = $commande->getIdcommande();
-            
-            
+
+
             $laCommande = $this->getDoctrine()
                     ->getRepository(Commandes::class)
                     ->find($idCommande);
@@ -95,7 +106,7 @@ class CommandesController extends AbstractController {
                     }
                 }
             }
-            
+
             unset($_SESSION['panier']);
             return $this->redirectToRoute("panier");
         }
@@ -126,22 +137,24 @@ class CommandesController extends AbstractController {
         $commandes = $this->getDoctrine()
                 ->getRepository(Commandes::class)
                 ->findBy([
-                        'numeroutilisateur' => $leNumero->getNumero()
-                    ]);;
+            'numeroutilisateur' => $leNumero->getNumero()
+        ]);
+        ;
         if (!$commandes) {
             throw $this->createNotFoundException(
                     'Aucune commande n\'est disponible'
             );
         }
-        
+
+
         $taille = sizeof($commandes);
-        
-        foreach($commandes as $uneCommande){
+
+        foreach ($commandes as $uneCommande) {
             $contenu = $this->getDoctrine()
                     ->getRepository(ContenuCommandes::class)
                     ->findBy([
-                        'idcommande' => $uneCommande->getIdCommande()
-                    ]);
+                'idcommande' => $uneCommande->getIdCommande()
+            ]);
             if (!$contenu) {
                 throw $this->createNotFoundException(
                         'Aucun contenu n\'est disponible'
@@ -151,9 +164,8 @@ class CommandesController extends AbstractController {
             $size = sizeof($uneCommande->recupContenu());
             $uneCommande->laTaille($size);
         }
-        
-
-        return $this->render('commandes/commandes.html.twig', array('commandes' => $commandes,'nbLivres' => $taille));
+        $commandes = array_reverse($commandes);
+        return $this->render('commandes/commandes.html.twig', array('commandes' => $commandes, 'nbLivres' => $taille));
     }
 
 }

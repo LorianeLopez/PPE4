@@ -10,11 +10,23 @@
                     <div class="row">
                         <div class="col-10">
                             <u><b>Commande n°{{commande.getIdCommande}}</b></u> : {{commande.getStatut.getLibellestatut()}}
+                            <br>
+                            <i style="font-size: 12px">Commander le {{commande.getDate}}</i>
                         </div>
                         <div class="col-2">
                             <u><b>Prix Total</b></u> : {{commande.getPrixTotal()}} €
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-1">
+                            <a class="btn btn-primary" href="../print/{{commande.getIdCommande}}" target="_blank"  style="color: white; text-decoration: none; margin-top: 25px; margin-left: 485px">
+                                <span class="glyphicon glyphicon-shopping-cart"></span>
+                                Générer en PDF
+                            </a>
+                        </div>
+                    </div>
+                    <br>
+
                     <br>
                     {% for i in 0..commande.recupTaille - 1%}
                         <br> 
@@ -33,11 +45,7 @@
                             </div>
                         </div>
                     {% endfor %}
-                    <a class="btn btn-primary" href="../print/{{commande.getIdCommande}}" target="_blank"  style="color: white; text-decoration: none; margin-top: 80px; margin-left: 900px">
-                        <span class="glyphicon glyphicon-shopping-cart"></span>
-                        Générer en PDF
-                    </a>
-                        <br><br>
+                    <br><br>
                     <hr style="width: 100%"/> 
                 {% endfor %}
                 <br><br>

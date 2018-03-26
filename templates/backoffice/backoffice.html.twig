@@ -3,7 +3,7 @@
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         {% if app.user.getRole() == "ROLE_ADMIN" %}
             <div class="container">
-                <div class="row" style='font-size:32px; text-align: center; margin-left: -60px'>
+                <div class="row" style='font-size:32px; text-align: center; margin-left: -120px'>
                     <div class="col-12">
                         <div><u><b>Nos Statistiques</b></u></div>
                     </div>
@@ -17,7 +17,25 @@
                         <div style="color: indianred"><i>Nombre de commandes validées</i> : <b>{{NbCommandes}}</b></div>
                         <div class="col-12" style="margin-left: -15px"><hr /></div>
                         <div style="color: indianred"><i>Chiffre d'Affaire</i> : <b>{{"%.2f"|format(chiffreAffaire)}}</b> €</div>
-                        <br><br>
+                        <div class="col-12" style="margin-left: -15px"><hr /></div>
+                        <div style="color: indianred">
+                            <a class="btn btn-primary" href="#"  style="color: white;text-decoration: none;">
+                                Exporter en xml
+                            </a>
+                        </div>
+                        <div class="col-12" style="margin-left: -15px"><hr /></div>
+                        <div style="color: indianred">
+                            <br>
+                            {#<input type="file" name="theFile" />
+                            <br><br>
+                            <a class="btn btn-primary" href="../xml" style="color: white;text-decoration: none;">
+                                Importer du xml
+                            </a>#}
+                            <form enctype="multipart/form-data" action="../xml" method="POST">
+                                <input type="file" name="theFile"/><br /><br>
+                                <input type="submit" class="btn btn-primary" style="color: white;text-decoration: none;" value="Importer du xml" />
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

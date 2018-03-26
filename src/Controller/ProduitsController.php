@@ -82,51 +82,5 @@ class ProduitsController extends AbstractController {
 
         return $this->render('produits/allBook.html.twig', array('sagas' => $sagas, 'livres' => $livres, 'nbLivres' => $taille));
     }
-    
-    /**
-     * @Route("/apiUnProduit/{id}", name="un_produit")
-     */
-    public function apiUnProduitMethodeClassique($id, EntityManagerInterface $em){
-        $uneSaga =$em->getRepository(Sagas::class)->findBy([
-                    'titreSaga' => $id
-                ]);
-        $serializer = $this->get('serializer');
-        $data = $serializer->serialize($uneSaga[0], 'json');
-        $response = new Response($data);
-        $response->headers->set('Content-Type', 'application/json');
-        $response->headers->set('Ok', 'Oui');
-        return $response;
-    }
-    
-    /**
-     * @Route("/apiAllProduit", name="all_produit")
-     */
-    public function apiAllProduitMethodeClassique(EntityManagerInterface $em){
-        $uneSaga =$em->getRepository(Sagas::class)->findAll();
-        $serializer = $this->get('serializer');
-        $data = $serializer->serialize($uneSaga, 'json');
-        $response = new Response($data);
-        $response->headers->set('Content-Type', 'application/json');
-        $response->headers->set('Ok', 'Oui');
-        return $response;
-    }
-    
-     /**
-     * @Route("/apiProduitsCategorie/{id}", name="produits_categorie")
-     */
-    public function apiProduitsCategorieMethodeClassique($id, EntityManagerInterface $em){
-        $serializer = $this->get('serializer');
-        $maSaga =$em->getRepository(Sagas::class)->findBy([
-                    'titreSaga' => $id
-                ]);
-        $lesLivre =$em->getRepository(Livres::class)->findBy([
-                    'sagaLivres' => $maSaga
-                ]);
-        $data = $serializer->serialize($lesLivre, 'json');
-        $response = new Response($data);
-        $response->headers->set('Content-Type', 'application/json');
-        $response->headers->set('Ok', 'Oui');
-        return $response;
-    }
 
 }

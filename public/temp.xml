@@ -1,0 +1,1320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 4.5.4.1
+- https://www.phpmyadmin.net
+-
+- Client :  localhost
+- Généré le :  Lun 19 Mars 2018 à 22:44
+- Version du serveur :  5.7.11
+- Version de PHP :  5.6.18
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="http://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="microstore" collation="utf8_general_ci" charset="utf8">
+            <pma:table name="commandes">
+                CREATE TABLE `commandes` (
+                  `idCommande` int(11) NOT NULL AUTO_INCREMENT,
+                  `numeroUtilisateur` varchar(255) DEFAULT NULL,
+                  `statut` int(11) DEFAULT NULL,
+                  `prixTotal` float NOT NULL,
+                  PRIMARY KEY (`idCommande`),
+                  KEY `numeroUtilisateur` (`numeroUtilisateur`),
+                  KEY `statut` (`statut`),
+                  KEY `idCommande` (`idCommande`),
+                  CONSTRAINT `FK_35D4282C983681BF` FOREIGN KEY (`numeroUtilisateur`) REFERENCES `utilisateurs` (`numero`),
+                  CONSTRAINT `commandes_ibfk_1` FOREIGN KEY (`statut`) REFERENCES `statut` (`idStatut`) ON DELETE NO ACTION ON UPDATE NO ACTION
+                ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="contenu_commandes">
+                CREATE TABLE `contenu_commandes` (
+                  `idContenu` int(11) NOT NULL AUTO_INCREMENT,
+                  `idCommande` int(11) DEFAULT NULL,
+                  `idLivre` int(11) DEFAULT NULL,
+                  `nbLivre` int(11) NOT NULL,
+                  PRIMARY KEY (`idContenu`),
+                  KEY `idLivre` (`idLivre`),
+                  KEY `idCommande` (`idCommande`),
+                  CONSTRAINT `FK_464C3D4C3D498C26` FOREIGN KEY (`idCommande`) REFERENCES `commandes` (`idCommande`),
+                  CONSTRAINT `FK_464C3D4CBBA70C84` FOREIGN KEY (`idLivre`) REFERENCES `livres` (`id_livre`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+            </pma:table>
+            <pma:table name="livres">
+                CREATE TABLE `livres` (
+                  `id_livre` int(11) NOT NULL AUTO_INCREMENT,
+                  `saga_livres` varchar(255) DEFAULT NULL,
+                  `titre_livre` varchar(255) NOT NULL,
+                  `couverture_livre` text NOT NULL,
+                  `resume_livre` text NOT NULL,
+                  `prix_livre` float NOT NULL,
+                  `stock_livre` int(11) NOT NULL,
+                  PRIMARY KEY (`id_livre`),
+                  KEY `saga_livres` (`saga_livres`),
+                  CONSTRAINT `FK_927187A4E00F1941` FOREIGN KEY (`saga_livres`) REFERENCES `sagas` (`titre_saga`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="sagas">
+                CREATE TABLE `sagas` (
+                  `titre_saga` varchar(255) NOT NULL,
+                  `auteur_saga` varchar(255) NOT NULL,
+                  `nb_livres_saga` int(11) NOT NULL,
+                  PRIMARY KEY (`titre_saga`),
+                  KEY `titre_saga` (`titre_saga`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="statut">
+                CREATE TABLE `statut` (
+                  `idStatut` int(11) NOT NULL AUTO_INCREMENT,
+                  `libelleStatut` varchar(255) NOT NULL,
+                  PRIMARY KEY (`idStatut`),
+                  KEY `idStatut` (`idStatut`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="utilisateurs">
+                CREATE TABLE `utilisateurs` (
+                  `numero` varchar(255) NOT NULL,
+                  `nom` varchar(255) NOT NULL,
+                  `prenom` varchar(255) NOT NULL,
+                  `codePerso` varchar(255) NOT NULL,
+                  `is_active` tinyint(1) NOT NULL,
+                  `role` varchar(255) NOT NULL,
+                  PRIMARY KEY (`numero`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Base de données :  'microstore'
+    -->
+    <database name="microstore">
+        <!-- Table commandes -->
+        <table name="commandes">
+            <column name="idCommande">1</column>
+            <column name="numeroUtilisateur">1234</column>
+            <column name="statut">4</column>
+            <column name="prixTotal">26.98</column>
+        </table>
+        <table name="commandes">
+            <column name="idCommande">2</column>
+            <column name="numeroUtilisateur">1234</column>
+            <column name="statut">1</column>
+            <column name="prixTotal">60</column>
+        </table>
+        <table name="commandes">
+            <column name="idCommande">3</column>
+            <column name="numeroUtilisateur">123456789</column>
+            <column name="statut">4</column>
+            <column name="prixTotal">50.7</column>
+        </table>
+        <table name="commandes">
+            <column name="idCommande">4</column>
+            <column name="numeroUtilisateur">123456789</column>
+            <column name="statut">1</column>
+            <column name="prixTotal">8.5</column>
+        </table>
+        <table name="commandes">
+            <column name="idCommande">5</column>
+            <column name="numeroUtilisateur">1234</column>
+            <column name="statut">4</column>
+            <column name="prixTotal">13.5</column>
+        </table>
+        <table name="commandes">
+            <column name="idCommande">6</column>
+            <column name="numeroUtilisateur">987654321</column>
+            <column name="statut">4</column>
+            <column name="prixTotal">111.47</column>
+        </table>
+        <!-- Table contenu_commandes -->
+        <table name="contenu_commandes">
+            <column name="idContenu">1</column>
+            <column name="idCommande">1</column>
+            <column name="idLivre">2</column>
+            <column name="nbLivre">1</column>
+        </table>
+        <table name="contenu_commandes">
+            <column name="idContenu">2</column>
+            <column name="idCommande">1</column>
+            <column name="idLivre">3</column>
+            <column name="nbLivre">1</column>
+        </table>
+        <table name="contenu_commandes">
+            <column name="idContenu">3</column>
+            <column name="idCommande">2</column>
+            <column name="idLivre">25</column>
+            <column name="nbLivre">1</column>
+        </table>
+        <table name="contenu_commandes">
+            <column name="idContenu">4</column>
+            <column name="idCommande">2</column>
+            <column name="idLivre">26</column>
+            <column name="nbLivre">1</column>
+        </table>
+        <table name="contenu_commandes">
+            <column name="idContenu">5</column>
+            <column name="idCommande">2</column>
+            <column name="idLivre">27</column>
+            <column name="nbLivre">1</column>
+        </table>
+        <table name="contenu_commandes">
+            <column name="idContenu">6</column>
+            <column name="idCommande">3</column>
+            <column name="idLivre">20</column>
+            <column name="nbLivre">1</column>
+        </table>
+        <table name="contenu_commandes">
+            <column name="idContenu">7</column>
+            <column name="idCommande">3</column>
+            <column name="idLivre">21</column>
+            <column name="nbLivre">1</column>
+        </table>
+        <table name="contenu_commandes">
+            <column name="idContenu">8</column>
+            <column name="idCommande">3</column>
+            <column name="idLivre">22</column>
+            <column name="nbLivre">1</column>
+        </table>
+        <table name="contenu_commandes">
+            <column name="idContenu">9</column>
+            <column name="idCommande">4</column>
+            <column name="idLivre">5</column>
+            <column name="nbLivre">1</column>
+        </table>
+        <table name="contenu_commandes">
+            <column name="idContenu">10</column>
+            <column name="idCommande">5</column>
+            <column name="idLivre">8</column>
+            <column name="nbLivre">1</column>
+        </table>
+        <table name="contenu_commandes">
+            <column name="idContenu">11</column>
+            <column name="idCommande">6</column>
+            <column name="idLivre">5</column>
+            <column name="nbLivre">1</column>
+        </table>
+        <table name="contenu_commandes">
+            <column name="idContenu">12</column>
+            <column name="idCommande">6</column>
+            <column name="idLivre">6</column>
+            <column name="nbLivre">1</column>
+        </table>
+        <table name="contenu_commandes">
+            <column name="idContenu">13</column>
+            <column name="idCommande">6</column>
+            <column name="idLivre">7</column>
+            <column name="nbLivre">1</column>
+        </table>
+        <table name="contenu_commandes">
+            <column name="idContenu">14</column>
+            <column name="idCommande">6</column>
+            <column name="idLivre">8</column>
+            <column name="nbLivre">2</column>
+        </table>
+        <table name="contenu_commandes">
+            <column name="idContenu">15</column>
+            <column name="idCommande">6</column>
+            <column name="idLivre">9</column>
+            <column name="nbLivre">1</column>
+        </table>
+        <table name="contenu_commandes">
+            <column name="idContenu">16</column>
+            <column name="idCommande">6</column>
+            <column name="idLivre">10</column>
+            <column name="nbLivre">1</column>
+        </table>
+        <table name="contenu_commandes">
+            <column name="idContenu">17</column>
+            <column name="idCommande">6</column>
+            <column name="idLivre">11</column>
+            <column name="nbLivre">1</column>
+        </table>
+        <!-- Table livres -->
+        <table name="livres">
+            <column name="id_livre">1</column>
+            <column name="saga_livres">Divergente</column>
+            <column name="titre_livre">Divergente Tome 1 - Divergente</column>
+            <column name="couverture_livre">build/img/Divergente/Divergente_Tome_1.jpg</column>
+            <column name="resume_livre">Elle est Divergente. Elle est en Danger de mort. 
+
+Dans un monde où on ne peut appartenir qu’à une seule faction parmi 5, une jeune fille apporte le chaos.
+
+Dans un Chicago post-apocalyptique, la société est divisée en 5 factions : les Altruistes, les Audacieux, les Sincères, les Érudits et les Fraternels. Chacune est consacrée au culte d’une vertu dans l’espoir de créer une civilisation parfaite. Les enfants grandissent dans la faction où ils sont nés. À 16 ans ils doivent choisir quelle sera la leur, pour la vie. Avant de prendre cette décision, ils passent des tests pour connaître la vertu la plus proche de leur personnalité. Pour Beatrice, issue d’une famille Altruiste, le choix s’annonce plus difficile encore.
+
+Son choix ne sera pas sans conséquences. Il apportera le chaos mais lui fera aussi découvrir l’amour...</column>
+            <column name="prix_livre">16.9</column>
+            <column name="stock_livre">0</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">2</column>
+            <column name="saga_livres">Divergente</column>
+            <column name="titre_livre">Divergente Tome 2 - Insurgés</column>
+            <column name="couverture_livre">build/img/Divergente/Divergente_Tome_2.jpg</column>
+            <column name="resume_livre">Différente. Déterminée. Dangereuse.
+
+Abandonnant une ville à feu et à sang, Tris est en fuite.
+
+Grâce à ses facultés de Divergente, elle a réussi à échapper au programme des Érudits qui a manipulé et lancé les soldats Audacieux à l'assaut des Altruistes. En trois jours, Tris a perdu sa faction, ses amis, ses parents.
+
+Pourtant, elle n'a pas le droit de baisser les bras. Elle seule peut se dresser face aux Érudits. Avec son frère Caleb et son petit ami Tobias, elle doit trouver des alliés parmi les autres factions, les Fraternels et les Sincères.
+
+Mais ceux-ci se montrent méfiants. Or les combats ont repris, et le temps presse... </column>
+            <column name="prix_livre">12.99</column>
+            <column name="stock_livre">6</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">3</column>
+            <column name="saga_livres">Divergente</column>
+            <column name="titre_livre">Divergente Tome 3 - Allégence</column>
+            <column name="couverture_livre">build/img/Divergente/Divergente_Tome_3.jpg</column>
+            <column name="resume_livre">Tris et ses alliés ont réussi à renverser les Érudits. Les sans-faction mettent alors en place une dictature, imposant à tous la disparition des factions. Plutôt que de se plier à ce nouveau pouvoir totalitaire, Tris, Tobias et leurs amis choisissent de s'échapper. Le monde qu'ils découvrent au-delà de la Clôture ne correspond en rien à ce qu'on leur a dit. Ils apprennent ainsi que leur ville, Chicago, fait partie d'une expérience censée sauver l'humanité contre sa propre dégénérescence.
+
+Mais l'humanité peut-elle être sauvée contre elle-même ?</column>
+            <column name="prix_livre">13.99</column>
+            <column name="stock_livre">12</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">4</column>
+            <column name="saga_livres">Divergente</column>
+            <column name="titre_livre">Divergente Tome 4 - Quatre</column>
+            <column name="couverture_livre">build/img/Divergente/Divergente_Tome_4.jpg</column>
+            <column name="resume_livre">Lors de sa cérémonie du Choix, un jeune Altruiste se dresse contre sa famille et sa faction : il choisit de rejoindre les Audacieux. Il choisit de se libérer de son passé. Il choisit un nouveau destin, et devient Quatre.
+
+Mais ce qu’il découvre chez les Audacieux peut mettre en péril son avenir, et celui de la société tout entière. Doit-il se dresser contre sa nouvelle faction ?
+
+Et si Tris, cette novice qui ne ressemble à aucune autre, était la réponse à ses interrogations ?</column>
+            <column name="prix_livre">16.9</column>
+            <column name="stock_livre">14</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">5</column>
+            <column name="saga_livres">Harry Potter</column>
+            <column name="titre_livre">Harry Potter à l'école des Sorciers</column>
+            <column name="couverture_livre">build/img/Harry_Potter/Harry_Potter_Tome_1.jpg</column>
+            <column name="resume_livre">Le jour de ses onze ans, Harry Potter, un orphelin élevé par un oncle et une tante qui le détestent, voit son existence bouleversée. Un géant vient le chercher pour l'emmener à Poudlard, la célèbre école de sorcellerie où une place l'attend depuis toujours. Voler sur des balais, jeter des sorts, combattre les Trolls : Harry Potter se révèle un sorcier vraiment doué. Mais quel mystère entoure donc sa naissance et qui est l'effroyable V..., le mage dont personne n'ose prononcer le nom ?</column>
+            <column name="prix_livre">8.5</column>
+            <column name="stock_livre">13</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">6</column>
+            <column name="saga_livres">Harry Potter</column>
+            <column name="titre_livre">Harry Potter et la Chambre des Secrets</column>
+            <column name="couverture_livre">build/img/Harry_Potter/Harry_Potter_Tome_2.jpg</column>
+            <column name="resume_livre">Une rentrée fracassante en voiture volante, une étrange malédiction qui s'abat sur les élèves, cette deuxième année à l'école des sorciers ne s'annonce pas de tout repos ! Entre les cours de potions magiques, les matches de Quidditch et les combats de mauvais sorts, Harry et ses amis Ron et Hermione trouveront-ils le temps de percer le mystère de la Chambre des Secrets ? Le deuxième volume des aventures de Harry Potter : un livre magique pour sorciers confirmés.</column>
+            <column name="prix_livre">8.5</column>
+            <column name="stock_livre">14</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">7</column>
+            <column name="saga_livres">Harry Potter</column>
+            <column name="titre_livre">Harry Potter et le Prisonnier d'Azkaban</column>
+            <column name="couverture_livre">build/img/Harry_Potter/Harry_Potter_Tome_3.jpg</column>
+            <column name="resume_livre">Sirius Black, le dangereux criminel, qui s'est échappé de la forteresse d'Azkaban, recherche Harry Potter. C'est donc sous bonne garde que l'apprenti sorcier fait sa troisième rentrée. Au programme : des cours de divination, la fabrication d'une potion de ratatinage, le dressage des hippogriffes... Mais Harry est-il vraiment à l'abri du danger qui le menace ? Le troisième tome des aventures de Harry Potter vous emportera dans un tourbillon de surprises et d'émotions. Frissons et humour garantis !</column>
+            <column name="prix_livre">9.99</column>
+            <column name="stock_livre">14</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">8</column>
+            <column name="saga_livres">Harry Potter</column>
+            <column name="titre_livre">Harry Potter et la Coupe de Feu</column>
+            <column name="couverture_livre">build/img/Harry_Potter/Harry_Potter_Tome_4.jpg</column>
+            <column name="resume_livre">Après un horrible été chez les Dursley, Harry Potter entre en quatrième année au collège de Poudlard. À quatorze ans, il voudrait simplement être un jeune sorcier comme les autres, retrouver ses amis Ron et Hermione, assister avec eux à la Coupe du Monde de Quidditch, apprendre de nouveaux sortilèges et essayer des potions inconnues. Une grande nouvelle l'attend à son arrivée : la tenue à Poudlard d'un tournoi de magie entre les plus célèbres écoles de sorcellerie. Déjà les spectaculaires délégations étrangères font leur entrée... Harry se réjouit. Trop vite. Il va se trouver plongé au coeur des événements les plus dramatiques qu'il ait jamais eu à affronter.
+
+Envoûtant, drôle, bouleversant, ce quatrième tome est le pilier central des aventures de Harry Potter.</column>
+            <column name="prix_livre">13.5</column>
+            <column name="stock_livre">12</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">9</column>
+            <column name="saga_livres">Harry Potter</column>
+            <column name="titre_livre">Harry Potter et l'Ordre du Phénix</column>
+            <column name="couverture_livre">build/img/Harry_Potter/Harry_Potter_Tome_5.jpg</column>
+            <column name="resume_livre">À quinze ans, Harry Potter s'apprête à entrer en cinquième année à Poudlard. Et s'il est heureux de retrouver le monde des sorciers, il n'a jamais été aussi anxieux. L'adolescence, la perspective des examens importants en fin d'année, et ces étranges cauchemars... Car Celui-Dont-On-Ne-Doit-Pas-Prononcer-Le-Nom est de retour et, plus que jamais, Harry sent peser sur lui une terrible menace. Une menace que le ministère de la Magie ne semble pas prendre au sérieux, contrairement à Dumbledore. Poudlard devient alors le terrain d'une véritable lutte de pouvoir. La résistance s'organise autour de Harry qui va devoir compter sur le courage et la fidélité de ses amis de toujours...</column>
+            <column name="prix_livre">10.49</column>
+            <column name="stock_livre">14</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">10</column>
+            <column name="saga_livres">Harry Potter</column>
+            <column name="titre_livre">Harry Potter et le Prince de Sang-Mêlé</column>
+            <column name="couverture_livre">build/img/Harry_Potter/Harry_Potter_Tome_6.jpg</column>
+            <column name="resume_livre">Dans un monde de plus en plus inquiétant, Harry se prépare à retrouver Ron et Hermione. Bientôt, ce sera la rentrée à Poudlard, avec les autres étudiants de sixième année. Mais pourquoi Dumbledore vient-il en personne chercher Harry chez les Dursley ? Dans quels extraordinaires voyages au cœur de la mémoire va-t-il l'entraîner ?</column>
+            <column name="prix_livre">19.99</column>
+            <column name="stock_livre">14</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">11</column>
+            <column name="saga_livres">Harry Potter</column>
+            <column name="titre_livre">Harry Potter et les Reliques de la Mort</column>
+            <column name="couverture_livre">build/img/Harry_Potter/Harry_Potter_Tome_7.jpg</column>
+            <column name="resume_livre">Cette année, Harry a dix-sept ans et ne retourne pas à Poudlard. Avec Ron et Hermione, il se consacre à la dernière mission confiée par Dumbledore. Mais le Seigneur des Ténèbres règne en maître. Traqués, les trois fidèles amis sont contraints et la clandestinité. D'épreuves en révélations, le courage les choix et les sacrifices de Harry seront déterminants dans la lutte contre les forces du Mal. Avec le dénouement de l'héroïque histoire de Harry Potter, J.K. Rowling signe un chef-d'œuvre d'une grande humanité et d'une maîtrise incomparable.</column>
+            <column name="prix_livre">27</column>
+            <column name="stock_livre">14</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">12</column>
+            <column name="saga_livres">Hunger Games</column>
+            <column name="titre_livre">Hunger Games Tome 1 - Hunger Games</column>
+            <column name="couverture_livre">build/img/Hunger_Games/Hunger_Games_Tome_1.jpg</column>
+            <column name="resume_livre">Un jeu imposé, 24 candidats, le gagnant survivra !
+
+Les Hunger Games ont commencé. Le vainqueur deviendra riche et célèbre. Les autres mourront...
+
+Dans un futur sombre, sur les ruines des Etats-Unis, un jeu télévisé est créé pour contrôler le peuple par la terreur
+
+Douze garçons et douze filles tirés au sort participent à cette sinistre téléréalité, que tout le monde est forcé de regarder en direct. Une seule règle dans l'arène : survivre, à tout prix.
+
+Quand sa petite soeur est appelée pour participer aux Hunger Games, Katniss n'hésite pas une seconde. Elle prend sa place, consciente du danger. A seize ans, Katniss a déjà été confrontée plusieurs fois à la mort. Chez elle, survivre est comme une seconde nature...</column>
+            <column name="prix_livre">18.15</column>
+            <column name="stock_livre">12</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">13</column>
+            <column name="saga_livres">Hunger Games</column>
+            <column name="titre_livre">Hunger Games Tome 2 - L'Embrasement</column>
+            <column name="couverture_livre">build/img/Hunger_Games/Hunger_Games_Tome_2.jpg</column>
+            <column name="resume_livre">Après le succès des derniers Hunger Games, le peuple de Panem est impatient de retrouver Katniss et Peeta pour la Tournée de la victoire. Mais pour Katniss, il s'agit surtout d'une tournée de la dernière chance. Celle qui a osé défier le Capitole est devenue le symbole d'un rebellion qui pourrait bien embraser Panem. Si elle échoue à ramener le calme dans les districts, le président Snow n'hésitera pas à noyer dans le sang le feu de la révolte. A l'aube, des jeux de l'Expiation, le piège du Capitole se referme sur Katniss...</column>
+            <column name="prix_livre">18.15</column>
+            <column name="stock_livre">12</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">14</column>
+            <column name="saga_livres">Hunger Games</column>
+            <column name="titre_livre">Hunger Games Tome 3 - La Révolte</column>
+            <column name="couverture_livre">build/img/Hunger_Games/Hunger_Games_Tome_3.jpg</column>
+            <column name="resume_livre">Je m'appelle Katniss Everdeen.
+
+Je devrais être morte.
+
+Maintenant je vais mener la révolte.
+
+Contre toute attente, Katniss a survécu une seconde fois aux Hunger Games. Mais le Capitole crie vengeance. Katniss doit payer les humiliations qu'elle lui a fait subir. Et le président Snow a été très clair: Katniss n'est pas la seule à risquer sa vie.
+
+Sa famille, ses amis et tous les anciens habitants du district Douze sont visées par la colère sanglante du pouvoir. Pour sauver les siens, Katniss doit redevenir le geai moqueur, le symbole de la rébellion.
+
+Quel que soit le prix à payer...</column>
+            <column name="prix_livre">18.15</column>
+            <column name="stock_livre">12</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">15</column>
+            <column name="saga_livres">L'Épreuve</column>
+            <column name="titre_livre">L'Épreuve Tome 1 - Le Labirynthe</column>
+            <column name="couverture_livre">build/img/L'Epreuve/L'Epreuve_Tome_1.jpg</column>
+            <column name="resume_livre">Quand Thomas reprend connaissance, sa mémoire est vide, seul son nom lui est familier... Il se retrouve entouré d'adolescents dans un lieu étrange, à l'ombre de murs infranchissables. Quatre portes gigantesques, qui se referment le soir, ouvrent sur un labyrinthe peuplé de monstres d'acier. Chaque nuit, le plan en est modifié.
+
+Thomas comprend qu'une terrible épreuve les attend tous. Comment s'échapper par le labyrinthe maudit sans risquer sa vie ? Si seulement il parvenait à exhumer les sombres secrets enfouis au plus profond de sa mémoire...</column>
+            <column name="prix_livre">7.8</column>
+            <column name="stock_livre">6</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">16</column>
+            <column name="saga_livres">L'Épreuve</column>
+            <column name="titre_livre">L'Épreuve Tome 2 - La Terre Brûlée</column>
+            <column name="couverture_livre">build/img/L'Epreuve/L'Epreuve_Tome_2.jpg</column>
+            <column name="resume_livre">Et si la vie était pire hors du Labyrinthe ?
+
+Thomas en était sûr, la sortie du labyrinthe marquerait la fin de l'Épreuve. Mais à l'extérieur il découvre un monde ravagé. La terre est dépeuplée, brûlée par un climat ardent. Plus de gouvernement, plus d'ordre... et des hordes de gens infectés, en proie à une folie meurtrière, errent dans les villes en ruines. Au lieu de la liberté espérée, Thomas se trouve confronté à un nouveau défi démoniaque. Au cœur de cette terre brûlée, parviendra-t-il à trouver la paix... et un peu d'amour ?</column>
+            <column name="prix_livre">7.8</column>
+            <column name="stock_livre">7</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">17</column>
+            <column name="saga_livres">L'Épreuve</column>
+            <column name="titre_livre">L'Épreuve Tome 3 - Le Remède Mortel</column>
+            <column name="couverture_livre">build/img/L'Epreuve/L'Epreuve_Tome_3.jpg</column>
+            <column name="resume_livre">Le temps des mensonges est terminé.
+
+Le WICKED a tout volé à Thomas : sa vie, sa mémoire et maintenant ses seuls amis. Mais l'épreuve touche à sa fin. Ne reste qu'un dernier test... Terrifiant.
+
+Cependant, Thomas a retrouvé assez de souvenirs pour ne plus faire confiance à l'organisation. Il a triomphé du Labyrinthe. Il a survécu à la Terre Brûlée. Il fera tout pour sauver ses amis, même si la vérité risque de provoquer la fin de tout.
+
+Le temps des mensonges est fini. Mais la vérité est plus dangereuse encore que ce que Thomas ne pourrait jamais imaginer.
+
+Quelqu'un survivra-t-il au Remède Mortel ?</column>
+            <column name="prix_livre">18.5</column>
+            <column name="stock_livre">7</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">18</column>
+            <column name="saga_livres">L'Épreuve</column>
+            <column name="titre_livre">L'Épreuve Tome 4 - L'Ordre de tuer</column>
+            <column name="couverture_livre">build/img/L'Epreuve/L'Epreuve_Tome_4.jpg</column>
+            <column name="resume_livre">Treize ans avant que Thomas entre dans le labyrinthe, une éruption solaire a frappé la Terre. Mark et Trina ont survécu à la catastrophe. Mais cette terrible épreuve n'est rien comparée à ce qui les attend. Une étrange épidémie se répand aux États-Unis, elle frappe de folie les individus qu'elle atteint. Pire, elle met en danger jusqu'à l'existence de la race humaine !
+
+Convaincus qu'il existe un moyen de sauver les malades, Mark et Trina sont bien décidés à le trouver ... s'ils parviennent à rester en vie. Dans ce monde devasté, certains préfèrent tuer pour que personne ne découvre la vérité.</column>
+            <column name="prix_livre">18.5</column>
+            <column name="stock_livre">7</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">19</column>
+            <column name="saga_livres">L'Épreuve</column>
+            <column name="titre_livre">L'Épreuve Tome 5 - La Braise</column>
+            <column name="couverture_livre">build/img/L'Epreuve/L'Epreuve_Tome_5.jpg</column>
+            <column name="resume_livre">Découvrez ce qui s'est passé avant Le labyrinthe...
+
+Le monde touche à sa fin. L'éruption solaire n'était que le commencement ; à présent que la Braise s'est répandue, les hommes sont gagnés par la folie et s'entretuent. Mais le WICKED cherche un remède, et trouve le garçon parfait : Thomas. Il va alors construire un labyrinthe que lui seul pourrait détruire...
+
+La vérité sur la construction du labyrinthe, la purge et l'arrivée des blocards est enfin dévoilée !</column>
+            <column name="prix_livre">18.5</column>
+            <column name="stock_livre">7</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">20</column>
+            <column name="saga_livres">La Sélection</column>
+            <column name="titre_livre">La Sélection Tome 1 - La Sélection</column>
+            <column name="couverture_livre">build/img/La_Selection/La_Selection_Tome_1.jpg</column>
+            <column name="resume_livre">Trois cent ans ont passé et les États-Unis ont sombré dans l'oubli. De leurs ruines est née Illea, une monarchie de castes. Mais un jeu de téléréalité pourrait bien changer la donne.
+
+Elles sont trente-cinq jeunes filles: la &quot;Sélection&quot; s'annonce comme l'opportunité de leur vie. L'unique chance pour elles de troquer un destin misérable contre un monde de paillettes. L'unique occasion d'habiter dans un palais et de conquérir le cœur du prince Maxon, l'héritier du trône.
+
+Mais pour America Singer, cette sélection relève plutôt du cauchemar. Cela signifie renoncer à son amour interdit avec Aspen, un soldat de la caste inférieure. Quitter sa famille. Entrer dans une compétition sans merci. Vivre jour et nuit sous l’œil des caméras...
+
+Puis America rencontre le Prince. Et tous les plans qu'elle avait échafaudés s'en trouvent bouleversés...</column>
+            <column name="prix_livre">16.9</column>
+            <column name="stock_livre">8</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">21</column>
+            <column name="saga_livres">La Sélection</column>
+            <column name="titre_livre">La Sélection Tome 2 - L'Élite</column>
+            <column name="couverture_livre">build/img/La_Selection/La_Selection_Tome_2.jpg</column>
+            <column name="resume_livre">Elle étaient 35 Candidates. Elles ne sont plus que 6.
+
+Trois cents ans ont passé et les Etats-Unis ont sombré dans l'oubli.
+
+De leurs ruines est née Illéa, une monarchie de castes. Mais un jeu de télé-réalité pourrait bien changer la donne.
+
+La Sélection de trente-cinq candidates s'est réduite comme peau de chagrin, et désormais l'Elite restante n'est plus composé que de six prétendantes. L'enjeu pour ces jeunes filles ? Convaincre le Prince Maxon, le Roi et la Reine ses parents, qu'elles sont les mieux à même de monter sur le trône d'Illéa, alors que deux factions rebelles veulent faire tomber la monarchie.
+
+Pour América Singer, demeurer au palais est encore plus compliqué : ses sentiments envers Maxon viennent se heurter à l'amour qu'elle éprouve pour Aspen, garde royal qu'elle croise tous les jours dans les galeries, et à son sens aigu de la justice trop souvent déçu par les décisions royales...
+
+Entre intrigues de cour, dilemmes tragiques et loyautés divisées, América navigue à vue dans la tourmente, en quête du déclic qui changera à jamais le cours de sa vie...
+
+Tout jeu comporte des règles, et les règles sont faites pour être transgressées.</column>
+            <column name="prix_livre">16.9</column>
+            <column name="stock_livre">8</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">22</column>
+            <column name="saga_livres">La Sélection</column>
+            <column name="titre_livre">La Sélection Tome 3 - L'Élue</column>
+            <column name="couverture_livre">build/img/La_Selection/La_Selection_Tome_3.PNG</column>
+            <column name="resume_livre">Une seule candidate sera couronnée.
+
+Trois cents ans ont passé et les États-Unis ont sombré dans l'oubli.
+
+De leurs ruines est née Illéa, une monarchie de castes.
+
+Mais un jeu de télé-réalité pourrait bien changer la donne.
+
+La Sélection a bouleversé la vie de trente-cinq jeunes filles. Déchirées entre amitié et rivalité, les quatre candidates encore en lice resteront liées par les épreuves qu'elles ont dû surmonter ensemble. Entre les intrigues amoureuses et celles de la cour, c'est une lutte de tous les instants pour demeurer fidèles à leurs idéaux.
+
+America n'aurait jamais pensé être si près de la couronne, ni du cœur du Prince Maxon. A quelques jours du terme de la compétition, tandis que l'insurrection fait rage aux portes du Palais, l'heure du choix a sonné.
+
+Car il ne doit en rester qu'une...</column>
+            <column name="prix_livre">16.9</column>
+            <column name="stock_livre">9</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">23</column>
+            <column name="saga_livres">La Sélection</column>
+            <column name="titre_livre">La Sélection Tome 4 - L'Héritière</column>
+            <column name="couverture_livre">build/img/La_Selection/La_Selection_Tome_4.jpg</column>
+            <column name="resume_livre">Une nouvelle Sélection commence...
+
+Vingt ans après la Sélection d'America Singer, et malgré l'abolition des castes, la famille royale d'Illéa doit à nouveau faire face au mécontentement du peuple : l'heure est venue de lancer une nouvelle sélection.
+
+A dix-huit ans, la princesse Eadlyn se sent prête à devenir reine. Elle l'est beaucoup moins à trouver un mari, au point que cette idée ne l'a même jamais effleurée. Quand elle consent finalement à ce que ses parents lui organisent une Sélection, Eadlyn voit son quotidien bouleversé par l'arrivée de ses 35 prétendants et la folie médiatique qui l'accompagne. Mais entre les raisons du coeur et la raison d'Etat, la Princesse va devoir faire ses choix, et, au fil des semaines, se prendre à ce jeu dont dépend l'avenir d'Illéa...</column>
+            <column name="prix_livre">16.9</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">24</column>
+            <column name="saga_livres">La Sélection</column>
+            <column name="titre_livre">La Sélection Tome 5 - La Couronne</column>
+            <column name="couverture_livre">build/img/La_Selection/La_Selection_Tome_5.jpg</column>
+            <column name="resume_livre">Il ne doit en rester qu'un.
+
+Vingt ans après la Sélection d'America Singer, et malgré l'abolition des castes, la famille royale d'Illeá doit à nouveau faire face au mécontentement du peuple : l'heure est venue de lancer une nouvelle Sélection.
+
+Sa mère à l'article de la mort, son père dévasté, il est temps pour la princesse Eadlyn de passer à la vitesse supérieure dans le processus de la Sélection. Encore novice aux jeux de l'amour et du pouvoir, détestée par une partie de l'opinion publique, elle doit pourtant choisir au plus vite son Élite de six prétendants.
+
+Devenir femme, épouse et reine en l'espace de quelques semaines, telle est la lourde tâche qui repose sur les épaules de la princesse. Mais le coeur peut se révéler un précieux allié, pour qui sait l'écouter...
+
+Le dernier volet de la série best-seller international.</column>
+            <column name="prix_livre">16.9</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">25</column>
+            <column name="saga_livres">Le Seigneur des Anneaux</column>
+            <column name="titre_livre">Le Seigneur des Anneaux Tome 1 - La Communauté de l'anneau</column>
+            <column name="couverture_livre">build/img/Le_Seigneur_des_Anneaux/Le_Seigneur_des_Anneaux_Tome_1.jpg</column>
+            <column name="resume_livre">Aux temps reculés qu'évoque le récit, la Terre est peuplée d'innombrables créatures étranges. Les Hobbits, apparentés à l'Homme, mais proches également des Elfes et des Nains, vivent en paix au nord-ouest de l'Ancien Monde, dans la Comté. Paix précaire et menacée, cependant, depuis que Bilbon Sacquet a dérobé au monstre Gollum l'anneau de Puissance jadis forgé par Sauron de Mordor. Car cet anneau est doté d'un pouvoir immense et maléfique. Il permet à son détenteur de se rendre invisible et lui confère une autorité sans limites sur les possesseurs des autres anneaux. Bref, il fait de lui le Maître du Monde. C'est pourquoi Sauron s'est juré de reconquérir l'anneau par tous les moyens. Déjà ses Cavaliers Noirs rôdent aux frontières de la Comté.</column>
+            <column name="prix_livre">20</column>
+            <column name="stock_livre">11</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">26</column>
+            <column name="saga_livres">Le Seigneur des Anneaux</column>
+            <column name="titre_livre">Le Seigneur des Anneaux Tome 2 - Les deux tours</column>
+            <column name="couverture_livre">build/img/Le_Seigneur_des_Anneaux/Le_Seigneur_des_Anneaux_Tome_2.jpg</column>
+            <column name="resume_livre">Laissant Frodon suivre son destin vers Mordor, Aragorn le Rodeur, Gimli le Nain et Legolas l'Elfe s'élancent à la poursuite d'une troupe d'orques ravisseurs de Merladoc et de Peregrin. La guerre contre les hordes du traître Saroumane est imminente. Homme, nain, elfes ou Hobbits, chacun devra y jouer un rôle à sa mesure, d'autant que la tour d'Orthane semble imprenable...
+
+Guidés par Gollum, créature sournoise attirée par l'Anneau de Sauron, Frodon et Sam affrontent les dangers qui se dressent sur le chemin menant à Mordor. Pour pénétrer dans ce pays, ils vont devoir chercher une entrée secrète, alors que Sauron envoie sa première armée sous les ordres du Roi Noir des Esprits Servants de l'Anneau. Ainso commence la guerre de l'Anneau.</column>
+            <column name="prix_livre">20</column>
+            <column name="stock_livre">11</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">27</column>
+            <column name="saga_livres">Le Seigneur des Anneaux</column>
+            <column name="titre_livre">Le Seigneur des Anneaux Tome 3 - Le Retour du Roi</column>
+            <column name="couverture_livre">build/img/Le_Seigneur_des_Anneaux/Le_Seigneur_des_Anneaux_Tome_3.jpg</column>
+            <column name="resume_livre">Avec Le Retour du Roi s'achèvent dans un fracas d'apocalypse les derniers combats de la guerre de l'Anneau.
+
+Tandis que le continent se couvre de ténèbres, anonçant pour le peuple des Hobbits l'aube d'une ère nouvelle, Frodon poursuit son entreprise. Alors qu'il n'a pu franchir le Porte Noire, il se demande comment atteindre le Mont du Destin. Peut-être est-il trop tard : le Seigneur des Ténèbres mobilise ses troupes. Les Rohirrim n'ont plus le temps d'en finir avec le traitre assiégé dans l'imprenable tour d'Orthanc ; ils doivent se rassembler pour faire face à l'ennemi. Tentant une fois de plus sa chance, Frodon passe par le Haut Col, où il sera livré à l'abominable Arachné. Survivra-t-il à son dangereux périple à travers le Pays Noir ?</column>
+            <column name="prix_livre">20</column>
+            <column name="stock_livre">11</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">28</column>
+            <column name="saga_livres">Les Loriens</column>
+            <column name="titre_livre">Les Loriens Tome 1 - Numero Quatre</column>
+            <column name="couverture_livre">build/img/Les_Loriens/Les_Loriens_Tome_1.jpg</column>
+            <column name="resume_livre">Neuf d'entre nous sont venus sur Terre.
+
+Notre objectif est de grandir, de nous entraîner et de nous réunir pour ne faire plus qu’un afin de la combattre. Mais ils nous ont trouvés et nous ont pris en chasse les premiers.
+
+A présent, nous sommes en fuite. Nous nous cachons en permanence, pour qu personne ne nous repère. Nous vivons parmi vous sans que vous vous en rendiez compte.
+
+Mais eux le savent.
+
+Ils ont attrapé Numéro Un en Malaisie.
+
+Numéro Deux en Angleterre.
+
+Et Numéro Trois au Kenya.
+
+Ils les ont tous tués.
+
+Je suis Numéro Quatre.
+
+Le prochain sur la liste.</column>
+            <column name="prix_livre">14.9</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">29</column>
+            <column name="saga_livres">Les Loriens</column>
+            <column name="titre_livre">Les Loriens Tome 2 - Le pouvoir des Six</column>
+            <column name="couverture_livre">build/img/Les_Loriens/Les_Loriens_Tome_2.jpg</column>
+            <column name="resume_livre">Ils ont capturé Numéro Un en Malaisie.
+
+Numéro Deux en Angleterre.
+
+Et Numéro Trois au Kenya.
+
+Ils ont essayé d'attraper Numéro Quatre en Ohio et ils ont échoué.
+
+Je suis Numéro Sept. Un des six encore en vie.
+
+Et je suis prêt à me battre.</column>
+            <column name="prix_livre">13.9</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">30</column>
+            <column name="saga_livres">Les Loriens</column>
+            <column name="titre_livre">Les Loriens Tome 3 - La revolte des Neuf</column>
+            <column name="couverture_livre">build/img/Les_Loriens/Les_Loriens_Tome_3.jpg</column>
+            <column name="resume_livre">Numéro Quatre leur a échappé,
+
+Numéro Six s’est évadée,
+
+Numéro Sept s’est enfuie à temps.
+
+ILS veulent finir ce qu’ils ont commencé, mais
+
+ILS leur faudra d’abord nous affronter.
+
+ENSEMBLE, nos pouvoirs sont immenses,
+
+ENSEMBLE, nous pourrons les vaincre.
+
+LE TEMPS NOUS EST COMPTÉ…
+
+Six, Sept et Ella partent à la recherche de Huit en Inde.
+
+John et Neuf doivent retrouver la trace de Sam.
+
+Une course contre la montre pour éviter le pire…</column>
+            <column name="prix_livre">15</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">31</column>
+            <column name="saga_livres">Les Loriens</column>
+            <column name="titre_livre">Les Loriens Tome 4 - L'empreinte des Cinq</column>
+            <column name="couverture_livre">build/img/Les_Loriens/Les_Loriens_Tome_4.jpg</column>
+            <column name="resume_livre">Je pensais que les choses changeraient quand j’aurai trouvé les autres. Nous aurions arrêté de fuir. Nous aurions combattu les Mogadoriens. Et nous aurions gagné.
+
+Mais j’avais tort. Bien que nous soyons ensemble, nous avons à peine réussi à sauver nos vies face aux Mogadoriens. Et maintenant nous nous cachons, essayant de savoir comment agir pour la suite.
+
+Nous six sommes puissants – mais pas encore assez forts pour venir à bout de leur armée entière. Nous n’avons pas encore découvert l’entière étendue de nos Héritages. Nous n’avons pas appris à œuvrer ensemble. Et il y a tellement de choses que nous ne savons pas encore sur les Elders et leur plan pour nous. Le temps file et il n’y a qu’une chose dont nous soyons certains: il nous faut trouver Numéro Cinq avant qu’ils ne le fassent.
+
+Ils ont attrapé Numéro Un en Malaisie.
+
+Numéro Deux en Angleterre.
+
+Et Numéro Trois au Kenya.
+
+Je suis Numéro Quatre. J’étais supposé être le suivant.
+
+Mais je suis toujours vivant.
+
+Cette bataille est loin d’être finie.</column>
+            <column name="prix_livre">15</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">32</column>
+            <column name="saga_livres">Les Loriens</column>
+            <column name="titre_livre">Les Loriens Tome 5 - La revanche des Sept</column>
+            <column name="couverture_livre">build/img/Les_Loriens/Les_Loriens_Tome_5.jpg</column>
+            <column name="resume_livre">Le pire était censé être passé. Nous étions réunis après une décennie seul. Nous découvrions la vérité sur notre passé. Nous nous entrainions et devenions plus forts chaque jour. Nous étions même heureux…
+
+Nous n’avions jamais imaginé que les Mogadoriens pourraient retourner l’un d’entre nous contre nous. Nous étions des imbéciles d’avoir fait confiance à Cinq. Et maintenant Huit est perdu pour toujours. Je ferais quoi que ce soit pour le ramener, mais c'est impossible. Au lieu de cela, je ferai tout ce qu'il faut pour détruire jusqu’au dernier d’entre eux.
+
+J’ai passé ma vie entière à me cacher d’eux et ils m’ont tous pris. Mais ça s’arrête maintenant. Nous allons prendre part à la bataille. Nous avons un nouvel allié qui connaît leurs faiblesses. Et j’ai finalement le pouvoir de résister.
+
+Ils ont attrapé Numéro Un en Malaisie.
+
+Numéro Deux en Angleterre.
+
+Numéro Trois au Kenya.
+
+Et Numéro Huit en Floride.
+
+Ils les ont tous tués.
+
+Je suis Numéro Sept.
+
+Je vais leur faire payer.</column>
+            <column name="prix_livre">15</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">33</column>
+            <column name="saga_livres">Les Loriens</column>
+            <column name="titre_livre">Les Loriens Tome 6 - Le Destin des Dix</column>
+            <column name="couverture_livre">build/img/Les_Loriens/Les_Loriens_Tome_6.jpg</column>
+            <column name="resume_livre">La Garde est sortie de l'ombre, La Garde est sur tous les fronts. La Garde a réveillé un ancien pouvoir : Celui qui peut sauver la planète Celui qui peut aussi la détruire... Tout dépendra de Celui qui l'exerce ! L'heure des réponses à sonné...</column>
+            <column name="prix_livre">15</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">34</column>
+            <column name="saga_livres">Les Loriens</column>
+            <column name="titre_livre">Les Loriens Tome 7 - Tous pour Un</column>
+            <column name="couverture_livre">build/img/Les_Loriens/Les_Loriens_Tome_7.jpg</column>
+            <column name="resume_livre">ILS nous ont traqués pour nos Dons,
+
+ILS sont maintenant à votre poursuite.
+
+ILS savent que vous avez des pouvoirs,
+
+ILS craignent notre force.
+
+NOUS devons leur donner raison !
+
+NOUS pouvons sauver la planète si
+
+NOUS nous battons ensemble.
+
+NOUS avons besoin de votre aide.
+
+ILS ont amorcé la guerre,
+
+NOUS la gagnerons !
+
+TOUS POUR UN !</column>
+            <column name="prix_livre">15</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">35</column>
+            <column name="saga_livres">Le Thrône de Fer</column>
+            <column name="titre_livre">Games of Throne - Les Origines</column>
+            <column name="couverture_livre">build/img/Le_Throne_de_Fer/GoT_Origine.PNG</column>
+            <column name="resume_livre">Voici enfin révélées par George R. R. Martin les origines d'une saga légendaire Pour la première fois, ce luxueux ouvrage raconte toute l'histoire des 7 royaumes, toutes les batailles épiques, toutes les perfides trahisons et toutes les valeureuses résistances qui ont conduit aux événements des romans Le Trône de Fer et de la série Game of Thrones. 
+Pour ce faire, l'auteur a travaillé pendant plusieurs années avec Elio M. Garcia Jr et Linda Antonsson, les fondateurs du site de référence Westeros.org, peut-être les seuls à connaître ce monde aussi bien que leur créateur. George R. R. Martin a aussi fait appel aux plus grands artistes de fantasy pour illustrer cet ouvrage avec plus de 170 oeuvres inédites. 
+Voici enfin rassemblés tous les savoirs, toute l'érudition, tous les contes populaires accumulés, préservés et chantés des siècles durant par les mestres et les septons, les maegi et les ménestrels. Voici toutes les chroniques passées de cet univers fascinant, de l'Age de l'Aube à l'Age des Héros, de l'arrivée des Premiers Hommes au couronnement d'Aegon le Conquérant, de la création du Trône de Fer à la rébellion de Robert et à la chute du roi fou, Aerys II Targaryen... 
+Voici le compagnon officiel et indispensable à tous les fans de l'une des plus grandes épopées de tous les temps.</column>
+            <column name="prix_livre">39.95</column>
+            <column name="stock_livre">5</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">36</column>
+            <column name="saga_livres">Le Thrône de Fer</column>
+            <column name="titre_livre">Le Thrône de Fer - Intégral 1</column>
+            <column name="couverture_livre">build/img/Le_Throne_de_Fer/GoT_Tome_1.PNG</column>
+            <column name="resume_livre">Le royaume des sept couronnes est sur le point de connaître son plus terrible hiver : par-delà le mur qui garde sa frontière nord, une armée de ténèbres se lève, menaçant de tout détruire sur son passage. Mais il en faut plus pour refroidir les ardeurs des rois, des reines, des chevaliers et des renégats qui se disputent le trône de fer, tous les coups sont permis, et seuls les plus forts, ou les plus retors s'en sortiront indemnes...</column>
+            <column name="prix_livre">22.9</column>
+            <column name="stock_livre">8</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">37</column>
+            <column name="saga_livres">Le Thrône de Fer</column>
+            <column name="titre_livre">Le Thrône de Fer - Intégrale 2</column>
+            <column name="couverture_livre">build/img/Le_Throne_de_Fer/GoT_Tome_2.PNG</column>
+            <column name="resume_livre">Le royaume des Sept Couronnes est sur le point de connaître son plus terrible hiver : par-delà le Mur qui garde sa frontière nord, une armée de ténèbres se lève, menaçant de tout détruire sur son passage. Mais il en faut plus pour refroidir les ardeurs des rois, des reines, des chevaliers et des renégats qui se disputent le Trône de fer. Tous les coups sont permis, et seuls les plus forts, ou les plus retors, s’en sortiront indemnes...</column>
+            <column name="prix_livre">17.5</column>
+            <column name="stock_livre">7</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">38</column>
+            <column name="saga_livres">Le Thrône de Fer</column>
+            <column name="titre_livre">Le Thrône de Fer - Intégrale 3</column>
+            <column name="couverture_livre">build/img/Le_Throne_de_Fer/GoT_Tome_3.PNG</column>
+            <column name="resume_livre">Le royaume des Sept Couronnes est sur le point de connaître son plus terrible hiver : par-delà le Mur qui garde sa frontière nord, une armée de ténèbres se lève, menaçant de tout détruire sur son passage. Mais il en faut plus pour refroidir les ardeurs des rois, des reines, des chevaliers et des renégats qui se disputent le Trône de fer. Tous les coups sont permis, et seuls les plus forts, ou les plus retors, s’en sortiront indemnes...</column>
+            <column name="prix_livre">17.5</column>
+            <column name="stock_livre">7</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">39</column>
+            <column name="saga_livres">Le Thrône de Fer</column>
+            <column name="titre_livre">Le Throne de Fer - Intégrale 4</column>
+            <column name="couverture_livre">build/img/Le_Throne_de_Fer/GoT_Tome_4.PNG</column>
+            <column name="resume_livre">Le royaume des Sept Couronnes est sur le point de connaître son plus terrible hiver : par-delà le Mur qui garde sa frontière nord, une armée de ténèbres se lève, menaçant de tout détruire sur son passage. Mais il en faut plus pour refroidir les ardeurs des rois, des reines, des chevaliers et des renégats qui se disputent le Trône de fer. Tous les coups sont permis, et seuls les plus forts, ou les plus retors, s’en sortiront indemnes...</column>
+            <column name="prix_livre">17.5</column>
+            <column name="stock_livre">7</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">40</column>
+            <column name="saga_livres">Le Thrône de Fer</column>
+            <column name="titre_livre">Le Thrône de Fer - Intégrale 5</column>
+            <column name="couverture_livre">build/img/Le_Throne_de_Fer/GoT_Tome_5.PNG</column>
+            <column name="resume_livre">Le royaume des Sept Couronnes est sur le point de connaître son plus terrible hiver : par-delà le Mur qui garde sa frontière nord, une armée de ténèbres se lève, menaçant de tout détruire sur son passage. Mais il en faut plus pour refroidir les ardeurs des rois, des reines, des chevaliers et des renégats qui se disputent le Trône de fer. Tous les coups sont permis, et seuls les plus forts, ou les plus retors, s’en sortiront indemnes...</column>
+            <column name="prix_livre">17.5</column>
+            <column name="stock_livre">7</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">41</column>
+            <column name="saga_livres">Maximum Ride</column>
+            <column name="titre_livre">Maximum Ride Tome 1 - Opération Angel</column>
+            <column name="couverture_livre">build/img/Maximum_Ride/Maximum_Ride_Tome_1.jpg</column>
+            <column name="resume_livre">Des mutants, voilà ce que nous sommes. Des humains, avec des gènes d'oiseaux en plus. Pas facile à vivre, surtout quand on est ado et chef d'une famille de cinq gosses,comme moi. Sans oublier que les Erasers-des mutants moitié homme, moitié loup-sont à nos trousses depuis qu'on s'est échappés du laboratoire où on a grandi. C'est là qu'Angel, la plus jeune de notre bande, est retenue prisonnière. Et c'est pour ça que l'opération Angel est lancée.</column>
+            <column name="prix_livre">12.99</column>
+            <column name="stock_livre">7</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">42</column>
+            <column name="saga_livres">Maximum Ride</column>
+            <column name="titre_livre">Maximum Ride Tome 2 - Objectif Liberté</column>
+            <column name="couverture_livre">build/img/Maximum_Ride/Maximum_Ride_Tome_2.PNG</column>
+            <column name="resume_livre">Angel est de retour aux côtés de Maximum Ride et des autres enfants mutants qui composent leur famille. Poursuivis sans relâche par les Erasers, créatures à mi-chemin entre l'homme et le loup, les six enfants n'ont d'autre choix que de s'associer au F.B.I. pour sauver leur peau. Déchirés entre le désir de percer le mystère de leurs origines et celui d'échapper à la mort, Max et ses amis devront affronter de nombreux dangers pour accéder à la vérité.</column>
+            <column name="prix_livre">9.99</column>
+            <column name="stock_livre">7</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">43</column>
+            <column name="saga_livres">Maximum Ride</column>
+            <column name="titre_livre">Maximum Ride Tome 3 - Mission Sauver le Monde</column>
+            <column name="couverture_livre">build/img/Maximum_Ride/Maximum_Ride_Tome_3.PNG</column>
+            <column name="resume_livre">Max et ses acolytes sont de retour à la case départ : dans l’antre de l’École infâme où ils sont nés.
+
+Après avoir frôlé la mort, ils s'échappent de leur prison grâce, notamment, à l’aide du jeune Ari, le fils de Jeb.
+
+Mais la reconnaissance envers ce garçon-loup ne fait pas l’unanimité et la bande se divise. Max prend la direction de l’Europe en compagnie d’Ari, d’Angel, de Nudge et de Total tandis que Fang file en Californie avec le Gasman et Iggy.
+
+Chacun de leur côté, les enfants devront rivaliser d’ingéniosité pour contrer les diaboliques projets de l’École et résister à la nouvelle génération d’Erasers : l’armée des robots Flyboys.</column>
+            <column name="prix_livre">6.9</column>
+            <column name="stock_livre">7</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">44</column>
+            <column name="saga_livres">Night School</column>
+            <column name="titre_livre">Night School Tome 01 - Night School</column>
+            <column name="couverture_livre">build/img/Night_School/Night_School_Tome_1.jpg</column>
+            <column name="resume_livre">Qui croire quand tout le monde vous ment ?
+
+Allie Sheridan déteste son lycée. Son grand frère a disparu. Et elle vient d'être arrêtée. Une énième fois. C'en est trop pour ses parents, qui l'envoient dans un internat au règlement quasi militaire. Contre toute attente, Allie s y plaît. Elle se fait des amis et rencontre Carter, un garçon solitaire, aussi fascinant que difficile à apprivoiser...
+
+Mais l'école privée Cimmeria n'a vraiment rien d'ordinaire. L'établissement est fréquenté par un fascinant mélange de surdoués, de rebelles et d'enfants de millionnaires. Plus étrange, certains élèves sont recrutés par la très discrète Night School, dont les dangereuses activités et les rituels nocturnes demeurent un mystère pour qui n'y participe pas.
+
+Allie en est convaincue : ses camarades, ses professeurs, et peut-être même ses parents, lui cachent d'inavouables secrets. Elle devra vite choisir à qui se fier, et surtout qui aimer...</column>
+            <column name="prix_livre">17.9</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">45</column>
+            <column name="saga_livres">Night School</column>
+            <column name="titre_livre">Night School Tome 02 - Héritage</column>
+            <column name="couverture_livre">build/img/Night_School/Night_School_Tome_2.jpg</column>
+            <column name="resume_livre">Humiliée de devoir la vie sauve à d'autres qu'elle-même, et consciente que son existence demeure inextricablement liée à de terribles enjeux encore très flous pour elle, Allie finit par rejoindre les rangs de la mystérieuse Night School. Commence alors le véritable travail. La société secrète combine des cours de self-défense aux cadences infernales, ainsi qu'un entraînement à la survie faisant appel à beaucoup de stratégie.
+
+À Cimmeria, les pensionnaires apprennent à vivre comme les impitoyables personnages de pouvoir qu'ils sont appelés à devenir : politicien de haute volée, PDG de multinationale ou conseiller de l'ombre. Et le message de la Night School est clair : pour pouvoir dominer le monde, il faut renoncer à sa vie propre et se dévouer corps et âme à l'Organisation..</column>
+            <column name="prix_livre">17.9</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">46</column>
+            <column name="saga_livres">Night School</column>
+            <column name="titre_livre">Night School Tome 03 - Rupture</column>
+            <column name="couverture_livre">build/img/Night_School/Night_School_Tome_3.jpg</column>
+            <column name="resume_livre">Inconsolable depuis la mort de son amie et sous la menace constante d'un espion qui rôde incognito à Cimmeria, Allie Sheridan accuse le coup. Et elle n'est pas la seule à perdre les pédales ; tout semble s'effondrer autour d'elle : amitiés, amours et certitudes. Alors, quand Nathaniel commence à abattre ses cartes maîtresses, Isabelle, la directrice elle-même, ne sait plus que faire. L'école sombre peu à peu dans les sables mouvants de la paranoïa et de la suspicion, tous les étudiants sont dorénavant considérés comme coupables jusqu'à preuve du contraire. Il n'y a plus de présomption d'innocence qui tienne et n'importe qui peut désormais être détenu sans procès. Plus personne ne peut se cacher. Cette fois-ci, Nathaniel n'a plus besoin de leur faire du mal ; les occupants de Cimmeria s'en chargent très bien tout seuls...</column>
+            <column name="prix_livre">17.9</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">47</column>
+            <column name="saga_livres">Night School</column>
+            <column name="titre_livre">Night School Tome 04 - Résistance</column>
+            <column name="couverture_livre">build/img/Night_School/Night_School_Tome_4.jpg</column>
+            <column name="resume_livre">Une saison pour aimer, une saison pour mourir…
+
+Allie Sheridan a trouvé un refuge secret en Provence. Elle parvient presque à s’y croire en sécurité… jusqu’à ce que les hommes de Nathaniel l’attaquent. Une fois de plus, elle est forcée de fuir et de retourner au seul endroit où elle se sent chez elle : l’académie Cimmeria.
+
+Allie reconnaît à peine les lieux. La paranoïa y atteint des sommets. La plupart des étudiants ont déserté l’école. Les professeurs ne sont plus dignes de confiance. Ce sont désormais les gardes qui prennent les choses en main… Plus grave, Nathaniel semble sur le point de remporter l’ultime combat.
+
+Carter et Sylvain sont tous deux prêts à s’engager dans la bataille aux côtés d’Allie et à lui prouver leur amour. Elle va devoir faire un choix. Cruel, déchirant, le plus difficile de sa vie. Car ni l’un ni l’autre ne l’attendront éternellement…</column>
+            <column name="prix_livre">17.9</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">48</column>
+            <column name="saga_livres">Night School</column>
+            <column name="titre_livre">Night School Tome 05 - Fin de la Partie</column>
+            <column name="couverture_livre">build/img/Night_School/Night_School_Tome_5.jpg</column>
+            <column name="resume_livre">Une saison pour aimer, une saison pour mourir...
+
+A Cimmeria, la paranoïa a enfin cessé: la taupe a été débusquée, mais à quel prix ! Les pertes sont lourdes et les Nocturnes, un genou à terre, sont obligés de battre en retraite pour panser leurs plaies.
+
+Nathaniel a remporté la bataille, pourtant sa victoire a un goût amer et il ne semble pas décidé à porter le coup final, malgré la monnaie d'échange qu'il possède et les enjeux colossaux de cette guerre farouche.
+
+C'est désormais à Allie de garder la tête froide dans cette fin de partie ou, plus que jamais, amour et pouvoir avancent main dans la main.</column>
+            <column name="prix_livre">17.5</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">49</column>
+            <column name="saga_livres">Outlander</column>
+            <column name="titre_livre">Outlander Tome 1 - Le Chardon et le Tartan</column>
+            <column name="couverture_livre">build/img/Outlander/Outlander_Tome_1.jpg</column>
+            <column name="resume_livre">1945. Claire, jeune infirmière, retrouve son mari Frank Randall dans un village écossais pour une seconde lune de miel - la première a été interrompue par la guerre. Alors qu'elle se promène dans la lande, elle découvre un ancien site mégalithique où les villageoises se réunissent en secret pour célébrer d'étranges rites. Fascinée, elle s'approche d'un grand menhir fendu... et se volatilise.
+
+Quand elle reprend conscience, elle est entourée d'hommes costumés qui se livrent bataille. Et curieusement, l'un des combattants est le sosie de son mari... A sa grande stupeur, elle comprend bientôt qu'elle est propulsée... en l'an de grâce 1743 ! Période troublée s'il en fut : l'Écosse, occupée par les Anglais, est à feu et à sang...
+
+Ainsi commence une épopée sauvage et baroque où se mêlent fantastique et histoire, action, amour et humour.</column>
+            <column name="prix_livre">16</column>
+            <column name="stock_livre">15</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">50</column>
+            <column name="saga_livres">Outlander</column>
+            <column name="titre_livre">Outlander Tome 2 - Le Talisman</column>
+            <column name="couverture_livre">build/img/Outlander/Outlander_Tome_2.jpg</column>
+            <column name="resume_livre">1968. A la mort de son mari, le docteur Claire Beauchamp-Randall emmène sa fille en Écosse, sur les lieux mêmes où, vingt ans plus tôt, elle a vécu d'extraordinaires aventures... Là, elle révèle à Brianna l'incroyable secret qu'elle n'a jamais dévoilé depuis qu'elle fut retrouvée inanimée auprès d'un menhir, dans un ancien site mégalithique, après trois années d'une absence inexpliquée. Ce second volet des aventures de Claire Beauchamp à travers l'Histoire entraîne le lecteur dans le Paris du siècle des Lumières. Après avoir fui l'Écosse où ils sont devenus hors-la-loi, Claire et Jamie, le jeune Highlander qu'elle a épousé, gagnent la capitale française à la rencontre de Charles-Edouard Stuart, le prétendant au trône d'Écosse et d'Angleterre, venu solliciter l'appui de son cousin Louis XV Leur objectif : décourager ses tentatives d'accession au trône qui, Claire le sait, marqueraient à coup sûr le début d'une répression sanglante dans les Highlands. Le couple se lance alors dans une course effrénée pour modifier le cours de l'Histoire. Pour cela, il devra affronter un monde sans pitié où il ne pourra compter que sur lui-même et la force de son amour avant de découvrir, à ses dépens, qu'on ne joue pas impunément avec la destinée humaine.</column>
+            <column name="prix_livre">16</column>
+            <column name="stock_livre">15</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">51</column>
+            <column name="saga_livres">Outlander</column>
+            <column name="titre_livre">Outlander Tome 3 - Le Voyage</column>
+            <column name="couverture_livre">build/img/Outlander/Outlander_Tome_3.jpg</column>
+            <column name="resume_livre">Dans ce troisième volet, vingt années se sont écoulées depuis le dernier périple de Claire dans l'Écosse du XVIIIe siècle. Si elle a refait sa vie en Angleterre, elle n'a jamais oublié son amour écossais, Jamie. Aussi, lorsqu'elle apprend qu'il a survécu à la sanglante bataille de Culloden, elle ose entreprendre une nouvelle fois le voyage en arrière dans le temps.
+
+À peine réuni, le couple est soumis à une série d'aventures qui va conduire Claire et Jamie jusqu'au Antilles où ils découvriront la dure réalité des colonies et de l'esclavage. Mais leur plus grand défi reste celui de réapprendre à se connaître après vingt ans de séparation forcée…</column>
+            <column name="prix_livre">17</column>
+            <column name="stock_livre">15</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">52</column>
+            <column name="saga_livres">Outlander</column>
+            <column name="titre_livre">Outlander Tome 4 - Les Tambours de l'Automne</column>
+            <column name="couverture_livre">build/img/Outlander/Outlander_Tome_4.jpg</column>
+            <column name="resume_livre">Claire et Jamie fuient l'oppression anglaise en se rendant au Nouveau Monde où ils pourront enfin connaître la paix. Mais en cet automne 1767, l'Histoire elle-même va se mêler de leur faire la vie difficile puisque l'Amérique coloniale va bientôt livrer sa guerre de l'Indépendance. Restée dans le confort du XXe siècle, la fille de Claire, Brianna, découvre dans des archives qu'un sort tragique guette sa mère et Jamie. Une seule solution: traverser à son tour la frontière du temps afin de les sauver. Mais elle doit agir vite. Avant que les portes du temps ne se referment sur eux...</column>
+            <column name="prix_livre">16</column>
+            <column name="stock_livre">15</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">53</column>
+            <column name="saga_livres">Outlander</column>
+            <column name="titre_livre">Outlander Tome 5 - La Croix de Feu</column>
+            <column name="couverture_livre">build/img/Outlander/Outlander_Tome_5.jpg</column>
+            <column name="resume_livre">La guerre de l'Indépendance est sur le point d'éclater et un grand événement se prépare chez les Fraser: le mariage de la fille de Claire, Brianna, ainsi que celui de la tante de Jamie, Jocasta. Mais cette cérémonie de noces multiplies est abruptement interrompue lorsque Jamie reçoit l'ordre de constituer, au nom de Sa Majesté, une force armée prête à intervenir en cas d'urgence. Pièges, drames, catastrophes, rien n'est épargné au couple Fraser, ni aux membres du clan. Mais la croix de feu, symbole des Highlanders en guerre, continue de briller dans tous les cœurs.</column>
+            <column name="prix_livre">17</column>
+            <column name="stock_livre">15</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">54</column>
+            <column name="saga_livres">Outlander</column>
+            <column name="titre_livre">Outlander Tome 6 - La Neige et la Cendre</column>
+            <column name="couverture_livre">build/img/Outlander/Outlander_Tome_6.jpg</column>
+            <column name="resume_livre">1772. Alors que la guerre de régulation semblait terminée, de nouveaux foyers de sédition ne cessent de s'allumer ici et là à travers les colonies d'Amérique. Claire et Jamie Fraser s'efforcent de protéger au mieux leurs terres et leurs gens, mais connaître l'avenir n'est pas un atout. Ils n'ont plus que quatre ans pour changer le cours de leur destin.</column>
+            <column name="prix_livre">17</column>
+            <column name="stock_livre">15</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">55</column>
+            <column name="saga_livres">Outlander</column>
+            <column name="titre_livre">Outlander Tome 7.1 - L'écho des Coeurs Lointains</column>
+            <column name="couverture_livre">build/img/Outlander/Outlander_Tome_7.1.jpg</column>
+            <column name="resume_livre">Juillet 1776 : le Congrès continental vient de ratifier la Déclaration d'indépendance de Thomas Jefferson. À Fraser's Ridge, Claire et Jamie ont vu leur demeure réduite en cendres et leur petite communauté décimée. La mort dans l'âme, ils reprennent la route.
+
+La guerre de l'Indépendance prend un tour décisif lors de la bataille de Saratoga. Jamie, devenu tireur d'élite, y reconnaît son fils naturel et affronte son cousin, qui sera blessé mortellement. Dans les colonies, lord John Grey découvre un pays livré à l'anarchie. Claire étant recherchée par les loyalistes pour avoir transmis en secret des missives aux insurgés, il lui fait une proposition destinée à la protéger…</column>
+            <column name="prix_livre">17</column>
+            <column name="stock_livre">15</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">56</column>
+            <column name="saga_livres">Outlander</column>
+            <column name="titre_livre">Outlander Tome 7.2 - L'echo des Coeurs Lointains</column>
+            <column name="couverture_livre">build/img/Outlander/Outlander_Tome_7.2.jpg</column>
+            <column name="resume_livre">James et Claire arrivent en Écosse après moult péripéties. Retenu par des problèmes familiaux, Jamie doit laisser sa femme repartir dans les colonies où ses parents ont besoin d'elle.</column>
+            <column name="prix_livre">17</column>
+            <column name="stock_livre">15</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">57</column>
+            <column name="saga_livres">Outlander</column>
+            <column name="titre_livre">Outlander Tome 8.1 - A l'encre de mon Coeur</column>
+            <column name="couverture_livre">build/img/Outlander/Outlander_Tome_8.1.jpg</column>
+            <column name="resume_livre">Juin 1778 : l'armée britannique quitte Philadelphie, alors que les troupes de George Washington délaissent Valley Forge pour se lancer à ses trousses. Jamie Fraser, que l'on croyait mort, réapparaît et découvre que son meilleur ami s'est marié avec sa femme, Claire. Il apprend également que son fils illégitime connaît maintenant l'identité de son père.Enfin réunis, Jamie et Claire se réjouissent que Brianna, leur fille, soit en sécurité au XXe siècle... Mais il n'en est rien, puisqu'elle est à la recherche de son fils, qui a été enlevé par un homme déterminé à connaître les secrets de sa famille. Son mari, Roger, s'est aventuré dans le passé pour retrouver le garçon disparu, ignorant que l'objet de sa quête n'a pas quitté le présent. Le ravisseur peut désormais jeter son dévolu sur sa véritable cible : Brianna.</column>
+            <column name="prix_livre">18</column>
+            <column name="stock_livre">15</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">58</column>
+            <column name="saga_livres">Outlander</column>
+            <column name="titre_livre">Outlander Tome 8.2 - A l'encre de mon Coeur</column>
+            <column name="couverture_livre">build/img/Outlander/Outlander_Tome_8.2.jpg</column>
+            <column name="resume_livre">Dans la foulée de la bataille de Monmouth, en 1778, Claire et Jamie Fraser doivent déterminer quelle sera leur prochaine destination. Resteront-ils à Philadelphie, où Fergus, le fils adoptif de Jamie, possède toujours son imprimerie, ou se hasarderont-ils à revenir à Fraser's Ridge, en Caroline ? Jamie souhaite aussi se réconcilier avec son fils naturel, William, qui ne veut rien savoir de son père biologique et qui a choisi la cause loyaliste, tout comme l'homme qui l'a élevé, lord John Grey. Brianna, la fille de Claire et Jamie, tentera elle aussi de retisser la toile familiale en partant à la recherche de son mari, Roger, dont le voyage dans le passé l'a ramené vers son propre père. L'amour et la famille triomphent dans cette quête qui mènera les personnages jusqu'à l'Amérique révolutionnaire, en passant par l'Écosse de 1739 et celle de 1980.</column>
+            <column name="prix_livre">18</column>
+            <column name="stock_livre">15</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">59</column>
+            <column name="saga_livres">Percy Jackson</column>
+            <column name="titre_livre">Percy Jackson Tome 1 - Le voleur de Foudre</column>
+            <column name="couverture_livre">build/img/Percy_Jackson/Percy_Jackson_Tome_1.jpg</column>
+            <column name="resume_livre">Être un demi-dieu, ça peut être mortel...
+
+Attaqué par sa prof de maths qui est en fait un monstre mythologique, injustement renvoyé de son collège et poursuivi par un minotaure enragé, Percy Jackson se retrouve en plus accusé d'avoir dérobé l'éclair de Zeus!
+
+Pour rester en vie, s'innocenter et découvrir l'identité du dieu qui l'a engendré, il devra accomplir sa quête au prix de mille dangers.</column>
+            <column name="prix_livre">9.9</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">60</column>
+            <column name="saga_livres">Percy Jackson</column>
+            <column name="titre_livre">Percy Jackson Tome 2 - La mer des Monstres</column>
+            <column name="couverture_livre">build/img/Percy_Jackson/Percy_Jackson_Tome_2.jpg</column>
+            <column name="resume_livre">Être le fils de Poséidon est-il un honneur ou une cruelle plaisanterie?
+
+L'année a été étrangement calme pour Percy. Pas un monstre n'a débarqué dans son collège de New York. Mais un jour, une simple partie de foot se change en bataille contre un gang de géants cannibales. Percy le demi-dieu a soudain un terrible pressentiment...
+
+L'arrivée inattendue de son amie Annabeth lui confirme ce que d'étranges cauchemars annonçaient: les frontières magiques qui protègent la Colonie des Sang-Mélé sont empoisonnées par un ennemi mystérieux. Pour sauver leur domaine, Percy et ses amis devront parcourir la mer des Monstres qui porte bien son nom...</column>
+            <column name="prix_livre">13.9</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">61</column>
+            <column name="saga_livres">Percy Jackson</column>
+            <column name="titre_livre">Percy Jackson Tome 3 - Le sort du Titan</column>
+            <column name="couverture_livre">build/img/Percy_Jackson/Percy_Jackson_Tome_3.jpg</column>
+            <column name="resume_livre">Percy et ses amis Annabeth, Grover et Thalia se retrouvent face à un horrible manticore, ils n'ont la vie sauve que grâce à l'intervention de la déesse Artémis et de ses Chasseresses. Mais, lorsque Annabeth, puis Artémis disparaissent, une nouvelle quête semée d'embûches s'annonce : Percy devra plus que jamais se méfier des manipulations et des pièges de Cronos, le Seigneur des Titans.</column>
+            <column name="prix_livre">13.9</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">62</column>
+            <column name="saga_livres">Percy Jackson</column>
+            <column name="titre_livre">Percy Jackson Tome 4 - La bataille du Labirynthe</column>
+            <column name="couverture_livre">build/img/Percy_Jackson/Percy_Jackson_Tome_4.jpg</column>
+            <column name="resume_livre">Le grand combat va commencer...
+
+La vie de Percy est menacée. L'armée de Cronos s'apprête à attaquer la Colonie des Sang-Mêlé, en empruntant le Labyrinthe de Dédale. Percy et ses amis doivent trouver Dédale avant Cronos et tout faire pour lui barrer la route. Mais circuler dans l'enfer souterrain n'est pas aisé... Surtout quand le chemin est parsemé d'effroyables pièges.</column>
+            <column name="prix_livre">13.9</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">63</column>
+            <column name="saga_livres">Percy Jackson</column>
+            <column name="titre_livre">Percy Jackson Tome 5 - Le dernier Olympien</column>
+            <column name="couverture_livre">build/img/Percy_Jackson/Percy_Jackson_Tome_5.jpg</column>
+            <column name="resume_livre">Toute l'année, Percy et son armée de demi-dieux se sont préparés à affronter les Titans. L'heure est venue. Les troupes de Cronos avancent vers Manhattan où l'Olympe est en danger. Tandis que Percy et ses amis luttent, ils savent que le temps est compté. La prophétie va s'accomplir : Percy prendra une décision qui condamnera ou sauvera le monde...</column>
+            <column name="prix_livre">13.9</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">64</column>
+            <column name="saga_livres">The 100</column>
+            <column name="titre_livre">Les 100 Tome 1</column>
+            <column name="couverture_livre">build/img/The_100/Les_100_Tome_1.jpg</column>
+            <column name="resume_livre">Depuis des siècles, plus personnes n'a posé le pied sur Terre. Le compte à rebours a commencé...
+
+Ils sont 100, tous mineurs, tous accusés de crimes passibles de la peine de mort.
+
+Après des centaines d'années d'exile dans l'espace, le Conseil leur accorde une seconde chance qu'ils n'ont pas le droit de refuser : retourner sur Terre.
+
+Seulement là-bas, l'atmosphère est potentiellement radioactive et à peine débarqués les 100 risquent de mourir.
+
+Amours, haines, secrets enfouis et trahisons.
+
+Comment se racheter une conduite quand on n'a plus que quelques heures à vivre ?</column>
+            <column name="prix_livre">17.9</column>
+            <column name="stock_livre">15</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">65</column>
+            <column name="saga_livres">The 100</column>
+            <column name="titre_livre">Les 100 Tome 2 - 21ème Jour</column>
+            <column name="couverture_livre">build/img/The_100/Les_100_Tome_2.PNG</column>
+            <column name="resume_livre">Cela fait vingt et un jours que les 100 ont posé le pied sur la Terre. Ils sont les premiers humains à fouler le sol depuis des siècles... C'est tout du moins ce qu'ils croient. Face à un ennemi invisible, Wells fait de son mieux pour garder le groupe soudé. Clarke part en expédition sur le mont Weather à la recherche d'autres Colons, tandis que Bellamy est déterminé à sauver sa soeur, quel que soit le prix à payer. Restée à bord du vaisseau en orbite, Glass se trouve confrontée au pire des choix imaginables entre l'amour de sa vie et la vie elle-même.
+
+Dans cette suite haletante du premier tome de la série Les 100 de Kass Morgan, des secrets vont être révélés, des certitudes bousculées et des relations mises à rude épreuve. Et les 100 vont devoir lutter pour survivre de la seule manière qui soit possible : ensemble.</column>
+            <column name="prix_livre">17.9</column>
+            <column name="stock_livre">15</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">66</column>
+            <column name="saga_livres">The 100</column>
+            <column name="titre_livre">Les 100 Tome 3 - Le Retour</column>
+            <column name="couverture_livre">build/img/The_100/Les_100_Tome_3.jpg</column>
+            <column name="resume_livre">Survivre
+
+Le manque d’oxygène à bord de la Colonie a déclenché une panique meurtrière. Seuls les plus chanceux ont pu emprunter les dernières navettes partant en direction de la Terre.
+
+Aimer
+
+Cette nouvelle apocalypse plonge les 100 dans l’angoisse : qui parmi leurs proches a survécu à l’atterrissage ? Les retrouveront-ils à temps ?
+
+Manipuler
+
+Bien décidé à conserver le pouvoir, le vice-chancelier n’hésitera pas à faire taire quiconque tentera de lui résister.
+
+Combattre
+
+Prêts à tout pour garder leur nouvelle liberté, Clarke, Bellamy, Wells et Glass devront chacun affronter leur destin pour sauver leur idéal.
+
+L’ultime compte à rebours a commencé.</column>
+            <column name="prix_livre">17.9</column>
+            <column name="stock_livre">15</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">67</column>
+            <column name="saga_livres">The 100</column>
+            <column name="titre_livre">Les 100 Tome 4 - Rebéllion</column>
+            <column name="couverture_livre">build/img/The_100/Les_100_Tome_4.jpg</column>
+            <column name="resume_livre">Il y a un mois, les capsules rapatriant les derniers colons sur Terre atterrissaient en catastrophe. Les 100 originels, autrefois considérés comme des criminels, sont à présent des leaders respectés. L’heure devrait être à la célébration de l’alliance avec les Nés-Terre, mais une nouvelle menace ne tarde pas à apparaître : une secte d’illuminés s’est mis en tête de « soigner » la planète en guerre… en éliminant toute vie à sa surface.
+
+Après qu’une vingtaine de leurs amis sont capturés, Clarke part à leur recherche, certaine de pouvoir s’entendre avec les fanatiques. Bellamy, lui, a une autre approche en tête : il ne laissera rien – ni personne – l’empêcher de sauver ceux qu’il aime. Captifs et craignant pour leur vie, Glass succombe peu à peu au charme du message hypnotique de la secte tandis que Wells doit trouver en lui les ressources nécessaires pour redevenir le chef qu’il était. Si les secours tardent à arriver, les jeunes prisonniers vont devoir subir un sort bien pire que tout ce qu’ils auraient pu imaginer.
+
+Les 100 vont devoir mettre leurs querelles de côté et s’unir face à l’ennemi s’ils souhaitent un jour être vraiment chez eux sur Terre.</column>
+            <column name="prix_livre">17.9</column>
+            <column name="stock_livre">15</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">68</column>
+            <column name="saga_livres">The Book of Ivy</column>
+            <column name="titre_livre">The Book of Ivy Tome 1 - The Book of Ivy</column>
+            <column name="couverture_livre">build/img/The_Book_of_Ivy/The_Book_of_Ivy_Tome_1.jpg</column>
+            <column name="resume_livre">Voilà cinquante ans qu’une guerre nucléaire a décimé la population mondiale. Un groupe de survivants d’une dizaine de milliers de personnes a fini par se former, et ce qui reste des États-Unis d’Amérique s’est choisi un président. Mais des deux familles qui se sont affrontées pour obtenir le pouvoir, la mienne a perdu. Aujourd’hui, les fils et les filles des adversaires d’autrefois sont contraints de s’épouser, chaque année, lors d’une cérémonie censée assurer l’unité du peuple.
+
+J’ai seize ans cette année, et mon tour est venu.
+
+Je m’appelle Ivy Westfall, et je n’ai qu’une seule et unique mission dans la vie : tuer le garçon qu’on me destine, Bishop, le fils du président. Depuis ma plus tendre enfance, je me prépare pour ce moment. Peu importent mes sentiments, mes désirs, mes doutes. Les espoirs de toute une communauté reposent sur moi. Le temps de la rébellion approche…
+
+Bishop doit mourir. Et je serai celle qui le tuera.
+
+Née pour trahir et faite pour tuer… Sera-t-elle à la hauteur ? À la fois histoire d’amour torturée, thriller psychologique et dystopie cruelle, The Book of Ivy vous entraîne dans un compte à rebours haletant dont vous ne sortirez pas indemnes.</column>
+            <column name="prix_livre">15</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">69</column>
+            <column name="saga_livres">The Book of Ivy</column>
+            <column name="titre_livre">The Book of Ivy Tome 2 - The Revolution of Ivy</column>
+            <column name="couverture_livre">build/img/The_Book_of_Ivy/The_Book_of_Ivy_Tome_2.jpg</column>
+            <column name="resume_livre">J'ai tout perdu. Mon foyer. Ma famille. L'homme que j'aime.
+
+Ce serait si facile de capituler, de fermer les yeux et d’attendre que la faim et la soif aient raison de moi. Ou bien qu’une bête sauvage me trouve. Ou même un autre survivant… Mais je refuse d’abandonner. J’en ai terminé avec la lâcheté. Il est temps pour moi d’agir, enfin.
+
+Bishop me l’avait bien dit, cet univers hostile ne pardonne pas la moindre erreur. Et au-delà de la barrière, c’est encore pire. L’hiver approche, et si je veux survivre, il va me falloir trouver de l’eau, des vivres, un abri. D’autres condamnés avec lesquels m’allier. Mais surtout, je vais devoir faire un choix : dois-je oublier ma vie d’avant, me venger de ceux qui m’ont trahie… ou mener, purement et simplement, la révolution ?
+
+Car je ne suis plus une Westfall, ni une Lattimer. Simplement Ivy.
+
+Et je suis enfin Libre.</column>
+            <column name="prix_livre">15</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <table name="livres">
+            <column name="id_livre">70</column>
+            <column name="saga_livres">La Sirène</column>
+            <column name="titre_livre">La Sirène</column>
+            <column name="couverture_livre">build/img/La_Sirene/La_Sirene.jpg</column>
+            <column name="resume_livre">Une fille au lourd secret.
+
+Le garçon de ses rêves.
+
+Un océan les sépare.
+
+Kahlen est une Sirène, vouée à servir son maître l'Océan en poussant les humains à la noyade. Son arme ? Une voix fatale pour qui a le malheur de l'entendre... et qui l'oblige à se faire passer pour muette lorsqu'elle séjourne sur la terre ferme.
+
+Akinli, lui, est un séduisant jeune homme, qui incarne tout ce dont Kahlen a toujours rêvé.
+
+Alors que leur amour naissant leur fait courir un grave danger, Kahlen est-elle prête à tout risquer pour Akinli ?</column>
+            <column name="prix_livre">17.9</column>
+            <column name="stock_livre">10</column>
+        </table>
+        <!-- Table sagas -->
+        <table name="sagas">
+            <column name="titre_saga">Divergente</column>
+            <column name="auteur_saga">Veronica Roth</column>
+            <column name="nb_livres_saga">4</column>
+        </table>
+        <table name="sagas">
+            <column name="titre_saga">Harry Potter</column>
+            <column name="auteur_saga">J.K Rowling</column>
+            <column name="nb_livres_saga">7</column>
+        </table>
+        <table name="sagas">
+            <column name="titre_saga">Hunger Games</column>
+            <column name="auteur_saga">Suzanne Collins</column>
+            <column name="nb_livres_saga">3</column>
+        </table>
+        <table name="sagas">
+            <column name="titre_saga">L'Épreuve</column>
+            <column name="auteur_saga">James Dashner</column>
+            <column name="nb_livres_saga">5</column>
+        </table>
+        <table name="sagas">
+            <column name="titre_saga">La Sélection</column>
+            <column name="auteur_saga">Kiera Cass</column>
+            <column name="nb_livres_saga">5</column>
+        </table>
+        <table name="sagas">
+            <column name="titre_saga">La Sirène</column>
+            <column name="auteur_saga">Kiera Cass</column>
+            <column name="nb_livres_saga">1</column>
+        </table>
+        <table name="sagas">
+            <column name="titre_saga">Le Seigneur des Anneaux</column>
+            <column name="auteur_saga">J.R.R Tolkien</column>
+            <column name="nb_livres_saga">3</column>
+        </table>
+        <table name="sagas">
+            <column name="titre_saga">Le Thrône de Fer</column>
+            <column name="auteur_saga">George R.R Martin</column>
+            <column name="nb_livres_saga">5</column>
+        </table>
+        <table name="sagas">
+            <column name="titre_saga">Les Loriens</column>
+            <column name="auteur_saga">Pittacus Lore</column>
+            <column name="nb_livres_saga">7</column>
+        </table>
+        <table name="sagas">
+            <column name="titre_saga">Maximum Ride</column>
+            <column name="auteur_saga">James Patterson</column>
+            <column name="nb_livres_saga">3</column>
+        </table>
+        <table name="sagas">
+            <column name="titre_saga">Night School</column>
+            <column name="auteur_saga">C.J Daugherty</column>
+            <column name="nb_livres_saga">5</column>
+        </table>
+        <table name="sagas">
+            <column name="titre_saga">Outlander</column>
+            <column name="auteur_saga">Diana Gabaldon</column>
+            <column name="nb_livres_saga">10</column>
+        </table>
+        <table name="sagas">
+            <column name="titre_saga">Percy Jackson</column>
+            <column name="auteur_saga">Rick Riodan</column>
+            <column name="nb_livres_saga">5</column>
+        </table>
+        <table name="sagas">
+            <column name="titre_saga">The 100</column>
+            <column name="auteur_saga">Kass Morgan</column>
+            <column name="nb_livres_saga">4</column>
+        </table>
+        <table name="sagas">
+            <column name="titre_saga">The Book of Ivy</column>
+            <column name="auteur_saga">Amy Engel</column>
+            <column name="nb_livres_saga">2</column>
+        </table>
+        <!-- Table statut -->
+        <table name="statut">
+            <column name="idStatut">1</column>
+            <column name="libelleStatut">En cours de Préparation</column>
+        </table>
+        <table name="statut">
+            <column name="idStatut">2</column>
+            <column name="libelleStatut">Expédiée</column>
+        </table>
+        <table name="statut">
+            <column name="idStatut">3</column>
+            <column name="libelleStatut">Livrée</column>
+        </table>
+        <table name="statut">
+            <column name="idStatut">4</column>
+            <column name="libelleStatut">Effectuée</column>
+        </table>
+        <!-- Table utilisateurs -->
+        <table name="utilisateurs">
+            <column name="numero">1234</column>
+            <column name="nom">Jonhson</column>
+            <column name="prenom">Erik</column>
+            <column name="codePerso">$2y$13$5Absc5YJIe8Tq6d8meTR2uYz5t8SLC5BXucZJoCDSxt7l4kYcwcNe</column>
+            <column name="is_active">1</column>
+            <column name="role">ROLE_ADMIN</column>
+        </table>
+        <table name="utilisateurs">
+            <column name="numero">123456789</column>
+            <column name="nom">Lopez</column>
+            <column name="prenom">Loriane</column>
+            <column name="codePerso">$2y$13$lT0mOQeoNaph3OlRKpCPgOngbQ8s4AHi5D.5RwsbunAZsYDrlq.Dq</column>
+            <column name="is_active">1</column>
+            <column name="role">ROLE_ADMIN</column>
+        </table>
+        <table name="utilisateurs">
+            <column name="numero">456</column>
+            <column name="nom">Kacar</column>
+            <column name="prenom">Emma</column>
+            <column name="codePerso">$2y$13$rz.TSSD4.cixWRPNi5Qg/uORn0yFxinV.exUfadXhUPsm4bfd6E5C</column>
+            <column name="is_active">1</column>
+            <column name="role">ROLE_USER</column>
+        </table>
+        <table name="utilisateurs">
+            <column name="numero">456987</column>
+            <column name="nom">Delettre</column>
+            <column name="prenom">Aymerich</column>
+            <column name="codePerso">$2y$13$76wNHvNpXItFMk1PA7x4IevlYi93EgTEypOkC9sGwT5nQfmzcZ0bG</column>
+            <column name="is_active">1</column>
+            <column name="role">ROLE_USER</column>
+        </table>
+        <table name="utilisateurs">
+            <column name="numero">9876543</column>
+            <column name="nom">Lopez</column>
+            <column name="prenom">Patrice</column>
+            <column name="codePerso">$2y$13$j9jhw0ayf760MYOMP1Qb.O0GlXH35FaLcO2O/Pvyu03D7Gtv0KNzy</column>
+            <column name="is_active">1</column>
+            <column name="role">ROLE_USER</column>
+        </table>
+        <table name="utilisateurs">
+            <column name="numero">987654321</column>
+            <column name="nom">Murcia</column>
+            <column name="prenom">Maxime</column>
+            <column name="codePerso">$2y$13$IxYs9q18LTlffs6nPNXTVOxTQxBqVs5ALDXd1W3pyAuhJR5mnLddy</column>
+            <column name="is_active">1</column>
+            <column name="role">ROLE_USER</column>
+        </table>
+    </database>
+</pma_xml_export>

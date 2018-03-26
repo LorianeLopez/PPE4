@@ -52,6 +52,13 @@ class Commandes
      * })
      */
     private $numeroutilisateur;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="date", type="string", nullable=false)
+     */
+    private $date;
 
     /**
      * Constructor
@@ -93,10 +100,13 @@ class Commandes
         $this->numeroutilisateur = $numeroutilisateur;
     }
 
-    function getIdcontenu(){
-        return $this->idcontenu;
+    function getDate() {
+        return $this->date;
     }
 
+    function setDate($date) {
+        $this->date = $date;
+    }
 
     public function leContenu($lesLivres){
         $this->contenu = $lesLivres;

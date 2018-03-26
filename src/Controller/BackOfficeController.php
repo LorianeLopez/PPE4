@@ -41,8 +41,7 @@ class BackOfficeController extends AbstractController {
                     'Aucun livre n\'est disponible'
             );
         }
-
-
+        
         $queryBuilder = $em->createQueryBuilder();
         $queryBuilder
                 ->from(Commandes::class, 'c')

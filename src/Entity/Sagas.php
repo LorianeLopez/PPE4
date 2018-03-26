@@ -17,7 +17,6 @@ class Sagas
      *
      * @ORM\Column(name="titre_saga", type="string", length=255, nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $titreSaga;
 
