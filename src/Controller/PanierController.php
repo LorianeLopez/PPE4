@@ -16,6 +16,8 @@ class PanierController extends AbstractController {
      */
     public function panierLivre() {
 
+        $_SERVER['REQUEST_URI'] = "http://127.0.0.1:86/panier/8";
+        die;
         $url = $_SERVER['REQUEST_URI'];
         $size = strlen($url);
         $idLivre = substr($url, 8, $size);

@@ -2,7 +2,7 @@
 
 {% block body %}
     {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <div><i>Vos identifiants sont incorrects. Veuillez réessayer.</i></div>
     {% endif %}
     <div class="container">
         <div class="row">
@@ -14,17 +14,17 @@
                     <form action="{{ path('login') }}" method='post'>
                         <br>
                         <label for="username"><i>Numero : </i></label>
-                        <input type="text" class="form-control" style="background-color: white" id='username' name="_username" value="{{ last_username }}" />
+                        <input type="text" class="form-control" style="background-color: white" id='username' name="_username" />
                         <br>
                         <label for="password"><i>Code Personnel : </i></label>
                         <input type="password" class="form-control" style="background-color: white" readonly="readonly" id="password" name="_password" />
                         <br>
                         <br>
-                        <button type="submit" class="btn btn-secondary" style="margin-left: -90px; color: white">Login</button>
+                        <button type="submit" class="btn btn-secondary" style="margin-left: -100px; color: white">Valider</button>
                     </form>
                     <br>
                     <br>
-                    <div>Si vous n'avez pas encore de compte, cliquez <a href="../register">ici</a> pour vous inscrire.</div>
+                    <div>Si vous n'avez pas encore de compte, <a href="../register">cliquez ici</a> pour vous inscrire.</div>
                 </center>
             </div>
             <br>

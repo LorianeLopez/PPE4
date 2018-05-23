@@ -13,12 +13,11 @@ class LoginController extends AbstractController{
      */
     public function login(AuthenticationUtils $auth){
         $erreur = $auth->getLastAuthenticationError();
-        $lastUserName = $auth->getLastUsername();
         $data = range(0, 9) + array_fill_keys(range(0,9), '');
         shuffle($data);
         $alea = array_chunk($data, 5, true);
         return $this->render('login/login.html.twig', array(
-            'last_username' => $lastUserName, 'error' =>$erreur, 'table' => $alea
+            'error' =>$erreur, 'table' => $alea
         ));
         
     }

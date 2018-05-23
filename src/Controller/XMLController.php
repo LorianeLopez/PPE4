@@ -5,6 +5,9 @@ namespace App\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Port\Xml\XmlWriter;
+use App\Entity\Commandes;
+use Doctrine\ORM\EntityManagerInterface;
 
 class XMLController extends AbstractController {
 
@@ -13,7 +16,7 @@ class XMLController extends AbstractController {
      * @return Response
      */
     public function import() {
-        
+
 //        $fichier = $_FILES['theFile']["tmp_name"];
 //        
 //         //On récupère le contenu du fichier XML source
@@ -32,24 +35,42 @@ class XMLController extends AbstractController {
 //
 //        // On supprime le fichier temporaire
 //        unlink("temp.xml");
-        
-        
+
+
         die;
-        
-        
     }
-    
+
     /**
      * @Route("/exportXml", name="export")
      * @return Response
      */
-    public function export() {
-        
-        
-        
+    public function export(EntityManagerInterface $em) {
+
+        $query = $em->createQueryBuilder();
+        $query
+                ->from(Commandes::class, 'c')
+                ->select('*');
+        $exec = $query->getQuery();
+        $data = $exec->execute();
+        $xml = new XMLWriter();
+        $xml->openUri("commandes.xml");
+        $xml->startDocument('1.0', 'utf-8');
+        $xml->startElement('commandes');
+
+        while ($pers = $data->fetch()) {
+            $xml->startElement('commande');
+            $xml->writeAttribute('idCommande', $pers['idcommande']);
+            $xml->writeElement('numeroUtilisateur', $pers['numeroutilisateur']);
+            $xml->writeElement('statut', $pers['statut']);
+            $xml->writeElement('prixTotal', $pers['prixtotal']);
+            $xml->writeElement('date', $pers['date']);
+            $xml->endElement();
+        }
+        $xml->endElement();
+        $xml->endElement();
+        $xml->flush();
+
         die;
-        
-        
     }
 
 }

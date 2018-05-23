@@ -35,23 +35,29 @@
                         <div class="col-1"></div>
                         <div class="col-md-3" id="centre" >
                             <h3> {{"%.2f"|format(livre.getPrixLivre)}} €</h3>
+                            <legend style="font-size: 13px">Toutes les taxes sont incluses.</legend>
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                {% if livre.getStockLivre > 0 %}
-                                    <br> <br> 
-                                    <div class="col-md-2" id="bouton" style="margin-left: -20px">
-                                        <a class="btn btn-primary" href="../panier/{{livre.getIdLivre|url_encode}}"  style="color: white;text-decoration: none;">
-                                           <span class="glyphicon glyphicon-shopping-cart"></span>
-                                            Ajouter au panier
-                                        </a>
-                                    </div>
+                                {% if app.user.getRole() == "ROLE_USER" %}
+                                    {% if livre.getStockLivre > 0 %}
+                                        <br> <br> 
+                                        <div class="col-md-2" id="bouton" style="margin-left: -20px">
+                                            <a class="btn btn-primary" href="../panier/{{livre.getIdLivre|url_encode}}"  style="color: white;text-decoration: none;">
+                                                <span class="glyphicon glyphicon-shopping-cart"></span>
+                                                Ajouter au panier
+                                            </a>
+                                        </div>
+                                    {% else %}
+                                        <br> <br> 
+                                        <div style="margin-left: -15px"><b><u>Rupture de Stock</u> !</b></div>
+                                    {% endif %}
                                 {% else %}
                                     <br> <br> 
-                                    <div style="margin-left: -15px"><b><u>Rupture de Stock</u> !</b></div>
+                                    <div style="margin-left: -15px"><b>Identifiez-vous en tant qu'Utilisateur pour ajouter cet article au panier.</b></div>
                                 {% endif %}
-                            {% else %}
-                                <br> <br> 
-                                <div style="margin-left: -15px"><b>Identifiez-vous pour ajouter cet article au panier.</b></div>
-                            {% endif %}
+                        {% else %}
+                            <br> <br> 
+                            <div style="margin-left: -15px"><b>Identifiez-vous pour ajouter cet article au panier.</b></div>
+                        {% endif %}
                         </div>
                     </div>
                     <br /> <br /> 

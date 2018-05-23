@@ -73,16 +73,23 @@
                 </div>
                 <br />
                 <br />
-                <div class="row" style="position: absolute; margin-top: 85px; right:300px;">
-                    <span id="boutonCommander">
-                        <a id="modal" href="#modal-commande" role="button" class="btn btn-primary" data-toggle="modal"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Commander</a>
-                    </span>
+                {% if livresPanier != 0 %}
+                    <div class="row" style="margin-top: 85px; margin-left: -300px;">
+                        <span id="boutonCommander">
+                            <a id="modal" href="#modal-commande" role="button" class="btn btn-primary" data-toggle="modal"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Commander</a>
+                        </span>
 
-                    <span id="boutonViderPanier">
-                        <a class="btn btn-danger" type="button" href="../panierVider" style="color: white;text-decoration: none;margin-left: 10px">Vider le panier</a>
-                    </span>
-                    <br><br><br><br><br><br>
-                </div>
+                        <span id="boutonViderPanier">
+                            <a class="btn btn-danger" type="button" href="../panierVider" style="color: white;text-decoration: none;margin-left: 10px">Vider le panier</a>
+                        </span>
+                        <br><br><br><br><br><br>
+                    </div>
+                {% else %}
+                    <div class="row" style="position: absolute; margin-top: 85px; right:300px;">
+                        <div><b>Votre Panier est vide.</b></div>
+                        <br><br><br><br><br><br>
+                    </div>
+                {% endif %}
                 <div class="modal fade" id="modal-commande" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content" style="background-color: papayawhip">

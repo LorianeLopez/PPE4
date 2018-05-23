@@ -37,8 +37,10 @@
                         <input type="hidden" id="numLog" value="{{app.user.getNumero()}}" />
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: indianred"><b>{{app.user.getNom()}} {{app.user.getPrenom()}} </b></a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: peachpuff">
+                            {% if app.user.getRole() == "ROLE_USER" %}
                             <a class="dropdown-item men" style="color: indianred;" href="../panier"><i class="fab fa-pagelines"></i>  <b>Panier</b></a>
                             <a class="dropdown-item men" style="color: indianred" href="../commandes/{{app.user.getNumero()}}"><i class="fab fa-phoenix-framework"></i> <b>Commandes</b></a>
+                            {% endif %}
                             {% if app.user.getRole() == "ROLE_ADMIN" %}
                                 <a class="dropdown-item men" style="color: indianred" href="../admin"><i class="fas fa-unlock"></i> <b>Administration</b></a>
                             {% endif %}
@@ -56,10 +58,6 @@
         </div>
     </nav>
     <hr style="margin-right: 100px; margin-top: 5px"/>
-    {#<div class="col-md-4">
-        Hello
-        <img src="{{asset("build/img/Divergente/Divergente_Tome_1.jpg")}}" alt=""/>
-    </div>#}
     {% block body %}
 
 
