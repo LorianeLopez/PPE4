@@ -38,10 +38,20 @@
                             <div class="col-md-5">
                                 <h4 style="margin-top: 50px">{{commande.recupContenu[i].getIdlivre.getTitreLivre()}}</h4>
                                 <br>
+                                {% if commande.recupContenu[i].getNbLivre() > 1 %}
+                                    <div style="font-size: 10px">{{commande.recupContenu[i].getNbLivre()}} exemplaires</div>
+                                {% else %}
+                                    <div style="font-size: 10px">{{commande.recupContenu[i].getNbLivre()}} exemplaire</div>
+                                {% endif %}
                             </div>
                             <div class="col-1"></div>
                             <div class="col-md-3" id="centre" >
-                                <h4 style="margin-top: 60px"> {{"%.2f"|format(commande.recupContenu[i].getIdlivre.getPrixLivre())}} €</h4>
+                                {% if commande.recupContenu[i].getNbLivre() > 1 %}
+                                    <h4 style="margin-top: 60px">{{commande.recupContenu[i].getNbLivre() * commande.recupContenu[i].getIdlivre.getPrixLivre()}} €</h4>
+                                    <div style="font-size: 13px"> {{"%.2f"|format(commande.recupContenu[i].getIdlivre.getPrixLivre())}} € /Unité</div>
+                                {% else %}
+                                    <h4 style="margin-top: 60px"> {{"%.2f"|format(commande.recupContenu[i].getIdlivre.getPrixLivre())}} €</h4>
+                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}

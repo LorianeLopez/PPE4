@@ -9,7 +9,7 @@
         <script src="https://www.paypalobjects.com/api/checkout.js"></script>
         {% set currentPath = path(app.request.attributes.get('_route'),
                        app.request.attributes.get('_route_params')) %} 
-       {% if currentPath == '/panierVider' %}
+        {% if currentPath == '/panierVider' %}
             <meta http-equiv="refresh" content="1; url=../panier">
         {% endif %}
     {% block stylesheets %}{% endblock %}
@@ -38,8 +38,8 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: indianred"><b>{{app.user.getNom()}} {{app.user.getPrenom()}} </b></a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: peachpuff">
                             {% if app.user.getRole() == "ROLE_USER" %}
-                            <a class="dropdown-item men" style="color: indianred;" href="../panier"><i class="fab fa-pagelines"></i>  <b>Panier</b></a>
-                            <a class="dropdown-item men" style="color: indianred" href="../commandes/{{app.user.getNumero()}}"><i class="fab fa-phoenix-framework"></i> <b>Commandes</b></a>
+                                <a class="dropdown-item men" style="color: indianred;" href="../panier"><i class="fab fa-pagelines"></i>  <b>Panier</b></a>
+                                <a class="dropdown-item men" style="color: indianred" href="../commandes/{{app.user.getNumero()}}"><i class="fab fa-phoenix-framework"></i> <b>Commandes</b></a>
                             {% endif %}
                             {% if app.user.getRole() == "ROLE_ADMIN" %}
                                 <a class="dropdown-item men" style="color: indianred" href="../admin"><i class="fas fa-unlock"></i> <b>Administration</b></a>
@@ -54,6 +54,9 @@
                         <a class="nav-link" style="color: indianred; position: absolute; right: 100px" href="../login"><b>Connexion</b></a>
                     </li>
                 {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" target="_blank" style="color: indianred" href="http://www.act1lopez.cnadal.fr"><b>Application</b></a>
+                </li>
             </ul>
         </div>
     </nav>
